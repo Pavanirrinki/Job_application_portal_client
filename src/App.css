@@ -1,0 +1,100 @@
+.border-input{
+  width: 90%;
+  padding: 0px 20px !important;
+  margin-top: 10px !important;
+}
+
+input[type="text"] {
+ padding: 10px;
+}
+input[type="password"] {
+  padding: 10px;
+
+ }
+ 
+
+.container form button, .backBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  max-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 10px;
+  margin: 25px 0;
+  background-color: #4070f4;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+.container form .btnText{
+  font-size: 14px;
+  font-weight: 400;
+}
+form button:hover{
+  background-color: #265df2;
+}
+form button i,
+form .backBtn i{
+  margin: 0 6px;
+}
+form .backBtn i{
+  transform: rotate(180deg);
+}
+form .buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form .buttons button , .backBtn{
+  margin-right: 14px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* ---------------------------------ALL PADDING STYLES--------------------------------------------- */
+.pd-30{
+padding:30px 30px 0px 30px;
+}
+.pd-6{
+  padding: 6px;
+}
+/* ------------------------------------ALL MARGIN STYLES------------------------------------------------- */
+.md-10{
+   margin: 10px ;
+}
+.ml-30{
+  margin-left: 30px;
+}
+/* -----------------------------------JUSTIFY-CONTENT-------------------------------------------------- */
+.flex-start{
+  display: flex;
+  justify-content: flex-start;
+}
+.flex-center{
+display: flex; 
+justify-content: center;
+}
+.flex-end{
+ display: flex; 
+ justify-content: flex-end;
+}
+.flex-spacearound{
+  display: flex;
+  justify-content: space-around;
+}
+/* ----------------------------------------------ALIGN-ITEMS--------------------------------------------- */
+.align-items-center{
+display:flex;
+align-items:center;
+}
+
+/* --------------------------------------------FONT-SIZE------------------------------------------------------- */
+
+.fs-30{
+  font-size: 30px !important;
+}

@@ -1,0 +1,244 @@
+.content_container{
+    background:#f2f2f2;
+    margin-top:80px;
+    position:absolute;
+    z-index:100;
+    width:100%;
+  
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    
+    
+}
+.profile_container{
+  display: flex;
+  justify-content: center;  
+  padding: 30px 30px 0px 30px;
+  flex-direction: column;
+  align-items: center;
+}
+.profile_image{
+    height: 80px; 
+    width: 80px ;
+    border: 1px solid red; 
+    border-radius:50%;
+    padding:10px;
+    margin-bottom: 3px;
+}
+.data{
+  
+    max-height: 17px !important;
+    font-size: 13px !important;
+    line-height: 17px !important;
+    font-weight: 500 !important;
+    max-width: 198px !important;
+    margin-right: 2px !important;
+
+}
+.data1{
+    margin-top: 5px !important;
+    font-size: 11px !important;
+}
+.update_period{
+    font-size: 10px !important;
+    font-weight: 700 !important;
+}
+.complete_profile_button{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    background: #275df5;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+.profile_performance{
+      width:95%;
+    background:#ecf5ff;
+    border-radius:10px;
+    padding:10px 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+  
+}
+.profile_performance_content{
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    opacity: 0.7;
+   
+}
+.Info_Icon{
+    font-size: 16px !important;
+    margin-left: 10px;
+}
+.user_tabs{
+  
+    border-radius: 20px !important;
+}
+.css-10hburv-MuiTypography-root {
+
+    font-weight: 550 !important;
+    font-size: 14px !important;
+ 
+    opacity: 0.7 !important;
+}
+.right_pills{
+    border: 1px solid red;
+   
+    border-radius: 20px;
+margin:  auto !important;
+text-align: center;
+margin-bottom: 10px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.innerdiv
+{
+	transform: scale(0.9);
+
+	display: grid;
+
+	
+	grid-template-columns: repeat(4,17rem);
+}
+.eachdiv
+{
+	padding: 1rem 2rem;
+    border-radius: 0.8rem;
+    box-shadow: 5px 5px 20px #6d6b6b6b;
+    color: white;
+}
+
+.div4
+{
+	background: white;
+
+    color: black;
+}
+
+.userdetails
+{
+	display: flex;
+}
+.imgbox
+{
+	margin-right: 1rem;
+}
+.imgbox img
+{
+	border-radius: 50%;
+	width: 2rem;
+	border: 2px solid #cec5c5;
+}
+.detbox
+{
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.detbox p
+{
+	margin: 0;
+}
+.detbox .name
+{
+	color: hsl(0, 0%, 81%);
+    font-size: 0.9rem;
+    margin-bottom: 0.1rem;
+    font-weight: 600;
+}
+.detbox .name.dark
+{
+	color: #49505A;
+}
+.detbox .designation
+{
+	color: hsl(0, 0%, 81%);
+    opacity: 50%;
+    font-size: 0.8rem;
+}
+.detbox .designation.dark
+{
+	color: #49505A;
+}
+.review h4
+{
+	font-size: 1.4rem;
+	color: #F3DEFF;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+}
+.review.dark h4{
+	color:#4B5258;
+}
+.review p
+{
+	font-size: 0.95rem;
+    color: #F3DEFF;
+    font-weight: 500;
+    opacity: 50%;
+    line-height: 1.5;
+}
+.review.dark p{
+	color: #0e0e0e;
+}
+.attribution
+{
+	font-size: 1rem;
+    line-height: 1.5;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    text-align: right;
+}
+.attribution a
+{
+	text-decoration: none;
+}
+
+@media only screen and (max-width: 1000px)
+{
+	.innerdiv
+	{
+		transform: scale(0.7);
+	}
+}
+@media only screen and (max-width: 800px)
+{
+	.innerdiv
+	{
+		transform: scale(0.6);
+	}
+}
+@media only screen and (max-width: 600px)
+{
+	.div1 {
+		background-position-x: 10rem;
+	}
+	.innerdiv
+	{
+		display: flex; 
+		flex-direction: column;
+		transform: scale(1);
+		margin: 2rem;
+		margin-bottom: 5rem;
+	}
+	.attribution
+	{
+		position: relative;
+	}
+}
