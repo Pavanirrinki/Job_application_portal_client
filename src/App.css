@@ -63,13 +63,20 @@ padding:30px 30px 0px 30px;
 .pd-6{
   padding: 6px;
 }
+.pd-20{
+  padding: 20px;
+}
 /* ------------------------------------ALL MARGIN STYLES------------------------------------------------- */
 .md-10{
-   margin: 10px ;
+   margin: 10px !important;
 }
 .ml-30{
   margin-left: 30px;
 }
+.ml-15{
+  margin-left: 15px !important;
+}
+
 /* -----------------------------------JUSTIFY-CONTENT-------------------------------------------------- */
 .flex-start{
   display: flex;
@@ -87,6 +94,10 @@ justify-content: center;
   display: flex;
   justify-content: space-around;
 }
+.flex-spacebetween{
+  display: flex;
+  justify-content: space-between;
+}
 /* ----------------------------------------------ALIGN-ITEMS--------------------------------------------- */
 .align-items-center{
 display:flex;
@@ -98,3 +109,24 @@ align-items:center;
 .fs-30{
   font-size: 30px !important;
 }
+.fs-15{
+  font-size: 15px !important;
+}
+.fs-12{
+  font-size: 12px !important;
+}
+.fs-14{
+  font-size: 14px !important;
+}
+.hideScrollbar {
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.hideScrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+

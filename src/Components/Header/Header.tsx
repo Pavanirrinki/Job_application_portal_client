@@ -60,7 +60,7 @@ const Header = (props: Props) => {
             <button className="searchButton">
               <SearchIcon />
             </button>
-            {searchedJobs.length >=1 &&   <Paper className="Search_Items" elevation={5}>    
+            {searchedJobs.length >=1 &&   <Paper className="Search_Items" elevation={7}>    
            {[1,2,3,4,5,6].map(data=><MenuItem className="menu_Items">Backend Developer</MenuItem>)}
          </Paper>}
          

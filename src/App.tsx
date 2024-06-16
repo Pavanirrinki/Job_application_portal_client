@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import { AppRoutes } from "./Components/AppRoutes";
+import Header from "./Components/Header/Header";
+import { Footer } from "./Components/Footer/Footer";
 
 function App() {
   useEffect(() => {
@@ -14,7 +16,11 @@ function App() {
   }, []);
   return (
     <div>
-      <AppRoutes />
+            <Header />
+            <div style={{paddingTop:"80px"}}>
+      <AppRoutes/>
+      </div>
+      <Footer />
     </div>
   );
 }

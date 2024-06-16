@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../Header/Header";
 import { Divider, Grid, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Tooltip, Typography } from "@mui/material";
 import "./Home.css";
@@ -9,16 +9,32 @@ import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlin
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
 import { Footer } from "../Footer/Footer";
+import ContentComponent from "../../Containers/MainContainer/RecommendedJobs";
+import { Job_details,Companies_data } from "../../Containers/MockData/MockData";
+import TopCompanies from "../../Containers/MainContainer/TopCompanies/TopCompanies";
 
 type Props = {};
+const styles:any = {
+  container: {
+    marginTop: '10px',
+    height: '110vh',
+    overflow: 'auto',
+ 
+   
+  },
+  
+};
 
 const Home = (props: Props) => {
+ 
   return (
     <>
-      <Header />
-      <Grid container className="content_container" >
+
+      <div style={{background:"#f2f2f2"}}>
+      <Grid container className="content_container" style={{height:"100vh"}}>
+   
         <Grid item xs={2} style={{ marginTop: "10px" }}>
-          <Paper className="profile_container">
+          <Paper className="profile_container" elevation={5} >
             <img src="userdp.svg" className="profile_image" alt="profile_pic" />
             <Typography
               variant="h6"
@@ -148,10 +164,17 @@ const Home = (props: Props) => {
          </div>
           </Paper>
         </Grid>
-        <Grid item xs={4} >
-    
-        </Grid>
-        <Grid item xs={2} style={{ marginTop: "10px" }}>
+        <Grid item xs={4} style={styles.container} className="hideScrollbar">
+
+<ContentComponent data={Job_details} title='Recommended jobs for you'/>
+<TopCompanies data={Companies_data} title="Top Companies"/>
+<ContentComponent data={Job_details} title='Recommended jobs for you'/>
+<TopCompanies data={Companies_data} title="Top Companies"/>
+<ContentComponent data={Job_details} title='Recommended jobs for you'/>
+<TopCompanies data={Companies_data} title="Top Companies"/>
+        </Grid> 
+        
+        <Grid item xs={2} >
      
     
     
@@ -178,9 +201,11 @@ const Home = (props: Props) => {
   })}
  
         </Grid>
-   <Footer />    
-      </Grid>
    
+      
+      </Grid>
+
+        </div>
     </>
   );
 };

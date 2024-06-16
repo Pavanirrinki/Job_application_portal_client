@@ -1,0 +1,46 @@
+.profile-container {
+    position: relative;
+    width: 150px; 
+    height: 150px; 
+}
+
+.profile-image {
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.progress-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(from 110deg, #e6e6e6 0% 20%, green 10% 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-circle::before {
+    content: '';
+    position: absolute;
+    width: 97%;
+    height: 97%;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.completion-text {
+    position: absolute;
+     bottom: -4px;
+     padding: 0px 10px 0px 10px;
+  
+   background: white;
+    font-size: 10px;
+    color: green;
+    font-weight: bold;
+    z-index: 3;
+}
