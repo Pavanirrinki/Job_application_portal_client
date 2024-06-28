@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../Header/Header";
 import { Divider, Grid, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Tooltip, Typography } from "@mui/material";
 import "./Home.css";
@@ -8,10 +8,11 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
-import { Footer } from "../Footer/Footer";
+import { useNavigate } from "react-router-dom";
 import ContentComponent from "../../Containers/MainContainer/RecommendedJobs";
 import { Job_details,Companies_data } from "../../Containers/MockData/MockData";
 import TopCompanies from "../../Containers/MainContainer/TopCompanies/TopCompanies";
+import { UserContext } from "../../Containers/useContext/Context";
 
 type Props = {};
 const styles:any = {
@@ -26,12 +27,15 @@ const styles:any = {
 };
 
 const Home = (props: Props) => {
- 
+  const{user} = useContext<any>(UserContext);
+
+ const navigate = useNavigate();
+
   return (
     <>
 
       <div style={{background:"#f2f2f2"}}>
-      <Grid container className="content_container" style={{height:"100vh"}}>
+      <Grid container className="content_container" style={{height:"110vh"}}>
    
         <Grid item xs={2} style={{ marginTop: "10px" }}>
           <Paper className="profile_container" elevation={5} >
@@ -44,7 +48,7 @@ const Home = (props: Props) => {
                 marginBottom: "3px",
               }}
             >
-              JohnDoe Smith
+            {user ? user?.name:"Update name"}
             </Typography>
             <Typography variant="subtitle1" className="data">
               B.Tech/B.E.Mechanical
@@ -56,7 +60,7 @@ const Home = (props: Props) => {
               Last updated 4m ago
             </Typography>
 
-            <button className="complete_profile_button">
+            <button className="complete_profile_button" onClick={()=>navigate("/profile_info")}>
               Complete Profile
             </button>
             <div className="profile_performance" >

@@ -1,5 +1,5 @@
 .border-input{
-  width: 90%;
+  width: 100%;
   padding: 0px 20px !important;
   margin-top: 10px !important;
 }
@@ -11,7 +11,10 @@ input[type="password"] {
   padding: 10px;
 
  }
- 
+ input[type='number']{
+  padding: 10px;
+ }
+  
 
 .container form button, .backBtn{
   display: flex;
@@ -76,7 +79,12 @@ padding:30px 30px 0px 30px;
 .ml-15{
   margin-left: 15px !important;
 }
-
+.ml-8{
+  margin-left: 8px !important;
+}
+.mr-12{
+  margin-right: 12px !important;
+}
 /* -----------------------------------JUSTIFY-CONTENT-------------------------------------------------- */
 .flex-start{
   display: flex;
@@ -129,4 +137,7 @@ align-items:center;
 .cursor-pointer{
   cursor: pointer;
 }
-
+/* --------------------------------------------CURSOR------------------------------------------------------- */
+.cursor-pointer{
+  cursor: pointer !important;
+}

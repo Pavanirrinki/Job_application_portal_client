@@ -1,5 +1,6 @@
 import {
   Button,
+  Container,
   Divider,
   Grid,
   Paper,
@@ -8,10 +9,34 @@ import {
 } from "@mui/material";
 import "./Login.css";
 import DoneIcon from '@mui/icons-material/Done';
+import { useState } from "react";
+import { USERSERVICE } from "../../Containers/Env/Env";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 type Props = {};
 
 
 const Login = (props: Props) => {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const HandleSubmit=(e:any)=>{
+    e.preventDefault();
+  axios.post(USERSERVICE+"login",{email,password},{
+    headers:{
+      "Content-Type": "application/json",
+    }
+  }).then((res)=>{console.log(res.data);
+    if(res.status == 200){
+      localStorage.setItem(`Job_application_user_data`,JSON.stringify(res.data));
+      return navigate("/")
+    }
+  }).catch((error)=>console.log(error.response?.data ? error.response?.data:error.message))
+  }
+  const SendOtp=(e:any)=>{
+    e.preventDefault();
+
+  }
   return (
     <Grid
       container
@@ -73,7 +98,9 @@ const Login = (props: Props) => {
         </Paper>
       </Grid>
       <Grid item xs={4}>
-        <Paper elevation={8} style={{ padding: "50px" }}>
+        
+        <Paper elevation={8} >
+          <Container >
           <Typography className="login-container">
             LogIn
           </Typography>
@@ -93,6 +120,9 @@ const Login = (props: Props) => {
             className="border-input"
             name="email"
             style={{marginBottom:"30px",opacity:"0.9"}}
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value)}}
           />
           <label
             style={{
@@ -108,26 +138,32 @@ const Login = (props: Props) => {
             id="demo-helper-text-misaligned"
             placeholder="Enter your password"
             className="border-input"
-            name="email"
+            name="password"
             type="password"
-            style={{marginBottom:"30px",opacity:"0.9"}}
+            style={{opacity:"0.9"}}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value)}}
           />
+          <Typography className="text-end mr-12 text-primary cursor-pointer" variant="caption" display="block" gutterBottom 
+          onClick={SendOtp}>Forgot password?</Typography>
           <div
             style={{
               display: "flex",
               justifyContent: "center",
               flexDirection: "column",
-              alignItems: "center",
+           
 
             }}
           >
             <Button
               variant="contained"
-              style={{ width: "90%", margin: "10px" }}
+              style={{ width: "inherit", margin: "10px" }}
+              onClick={HandleSubmit}
             >
-              Text
+            LOG IN
             </Button>
-            <Typography>Use OTP to LogIn</Typography>
+            <Typography className="text-center">Use OTP to LogIn</Typography>
           </div>
           <div
             style={{
@@ -144,7 +180,8 @@ const Login = (props: Props) => {
                 borderRadius: "20px",
                 display: "flex",
                 alignItems: "center",
-              }}
+              marginBottom:"30px"
+                    }}
             >
               <img
                 src="google.png"
@@ -152,16 +189,20 @@ const Login = (props: Props) => {
                 alt="google logo"
               />
 
-              <Typography style={{ fontWeight: "700", color: "grey",fontSize:"15px" }}>
+              <Typography style={{ fontWeight: "700", color: "grey",fontSize:"15px"}}>
                 Sign In with Google
               </Typography>
+            
             </Paper>
           </div>
+          </Container>
         </Paper>
       </Grid>
       <Grid item xs={2}></Grid>
     </Grid>
   );
 };
+
+
 
 export default Login;

@@ -2,7 +2,7 @@
     
 
     width:100%;
-    top:90px;
+  
 
     display: flex;
     justify-content: center;
@@ -233,7 +233,7 @@ margin-bottom: 10px !important;
 .hideScrollbar {
 
     margin-top: 10px !important;
-    height: 95vh !important;
+    height: 95% !important;
     overflow: auto !important;
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For Internet Explorer and Edge */

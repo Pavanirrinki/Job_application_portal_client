@@ -1,8 +1,7 @@
 .container{
-position: absolute;
-left: 50%;      
-top:50%;
-transform: translate(-50%, -50%);  
+margin-bottom: 30px;
+padding-top: 5%;
+
 }
 
 .heading{
@@ -30,5 +29,6 @@ color: #091e42;
         font-weight:700;
         line-height: 50px;
         opacity:0.9;
-   
+      padding-top: 20px;
+      
 }
