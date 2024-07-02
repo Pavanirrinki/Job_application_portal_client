@@ -7,37 +7,18 @@ import { Footer } from "./Components/Footer/Footer";
 import { UserContext } from "./Containers/useContext/Context";
 
 function App() {
-  const [data,setData] = useState<any>();
-  const{user} = useContext(UserContext);
-  useEffect(() => {
-    axios
-      .get(
-        "http://localhost:8765/da123", {
-          
-        headers: {
-          Accept: 'application/json',
-          "Content-Type":"application/json"
-          
-        },
-    }
-      )
-      .then((data) => setData(data.data))
-      .catch((e) => console.log(e.message));
-  }, []);
-  console.log(user)
+  const { user } = useContext(UserContext);
+
+  console.log(user);
   return (
     <div>
-            <Header />
-     <div style={{paddingTop:"90px"}}>    
-      <AppRoutes />
-      </div> 
+      <Header />
+      <div className="pd-90">
+        <AppRoutes />
+      </div>
       <Footer />
     </div>
   );
 }
 
 export default App;
-
-
-// className="otp-field"
-//  className="btn bg-primary"

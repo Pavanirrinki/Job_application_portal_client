@@ -17,46 +17,51 @@ import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import ScrollDialog, { Education, PersonalDewtails } from "../../Containers/Dialog/Dialog";
-import { USERSERVICE} from "../../Containers/Env/Env";
+import ScrollDialog, {
+  Education,
+  PersonalDewtails,
+} from "../../Containers/Dialog/Dialog";
+import { USERSERVICE } from "../../Containers/Env/Env";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { UserContext } from "../../Containers/useContext/Context";
 
 type Props = {};
 
 const UpdateProfile = (props: Props) => {
- 
-  const{user,userProfileData,educational_details} = useContext<any>(UserContext);
+  const { user, userProfileData, educational_details } =
+    useContext<any>(UserContext);
   const [image, setImage] = useState<any>(null);
- 
+
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleDateString();
   }
-console.log(userProfileData,"power",user)
-  const handleprofilechange = async(e: any) => {
+  console.log(userProfileData, "power", user);
+  const handleprofilechange = async (e: any) => {
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = async function () {
       console.log(reader.result, "reads.result");
-     await setImage(reader.result);
+      await setImage(reader.result);
       const formData = new FormData();
-      formData.append('profile', e.target.files[0]);
-     await axios.put(USERSERVICE+`Update_profile/${user.id}`,formData,{
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }).
-      then((res)=>console.log(res.data)).catch((error)=>console.log(error.message))
+      formData.append("profile", e.target.files[0]);
+      await axios
+        .put(USERSERVICE + `Update_profile/${user.id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => console.log(res.data))
+        .catch((error) => console.log(error.message));
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
     };
   };
 
- console.log(userProfileData,"userProfileData");
+  console.log(userProfileData, "userProfileData");
   return (
-    <Container className="mb-5" >
+    <Container className="mb-5">
       <Paper className="p-5 rounded d-flex justify-content-center gap-5 align-items-center mb-3">
         <Stack className="profile-container">
           <label htmlFor="input">
@@ -75,13 +80,13 @@ console.log(userProfileData,"power",user)
                   alt="profile_pic"
                 />
                 <div className="add-icon">
-                  <AddCircleOutlineIcon style={{ fontSize: "50px" }} />
+                  <AddCircleOutlineIcon className="fs-50" />
                 </div>
               </div>
               <input
                 id="input"
                 type="file"
-                style={{ display: "none" }}
+                className="d-none"
                 onChange={handleprofilechange}
               />
             </Stack>
@@ -89,13 +94,15 @@ console.log(userProfileData,"power",user)
         </Stack>
         <Stack>
           <div className="d-flex flex-row gap-3 align-items-center">
-            <Typography>{userProfileData && userProfileData.userId.name}</Typography>
+            <Typography>
+              {userProfileData && userProfileData.userId.name}
+            </Typography>
             <ScrollDialog button={<ModeOutlinedIcon />} />
           </div>
           <Typography className="mb-3">
             Profile last updated - 06Feb , 2024
           </Typography>
-          <div style={{ border: "1px solid grey", width: "100%" }}></div>
+          <div className="border border-1 w-100"></div>
           <Box className="d-flex justify-content-between gap-5 mt-3">
             <Stack className="row-gap-3">
               <div className="d-flex flex-row gap-3 align-items-center">
@@ -114,7 +121,7 @@ console.log(userProfileData,"power",user)
             <Divider
               orientation="vertical"
               flexItem
-              style={{ border: "1px solid red" }}
+              className="border border-danger"
             />
             <Stack className="row-gap-3">
               <div className="d-flex flex-row gap-3 align-items-center">
@@ -123,12 +130,11 @@ console.log(userProfileData,"power",user)
                   +91 {userProfileData && userProfileData.userId.mobilenumber}
                 </Typography>
               </div>
-              <div
-                className="d-flex flex-row gap-3 align-items-center"
-                style={{ maxWidth: "400px", wordBreak: "break-word" }}
-              >
+              <div className="d-flex flex-row gap-3 align-items-center details_container">
                 <EmailOutlinedIcon />
-                <Typography>{userProfileData && userProfileData.userId.email}</Typography>
+                <Typography>
+                  {userProfileData && userProfileData.userId.email}
+                </Typography>
               </div>
             </Stack>
           </Box>
@@ -139,9 +145,12 @@ console.log(userProfileData,"power",user)
         <div className="d-flex justify-content-between align-items-center">
           <div>
             <Typography className="pb-2">Resume</Typography>
-            <Typography>{userProfileData && userProfileData.resumename}</Typography>
             <Typography>
-              Uploaded on {userProfileData && formatDate(userProfileData.uploadeddate)}
+              {userProfileData && userProfileData.resumename}
+            </Typography>
+            <Typography>
+              Uploaded on{" "}
+              {userProfileData && formatDate(userProfileData.uploadeddate)}
             </Typography>
           </div>
           <div className="gap-4 d-flex">
@@ -149,51 +158,22 @@ console.log(userProfileData,"power",user)
               href={`data:image/${
                 userProfileData &&
                 userProfileData.resumename.substring(
-          userProfileData.resumename.lastIndexOf(".") + 1,
-              userProfileData.resumename.length
+                  userProfileData.resumename.lastIndexOf(".") + 1,
+                  userProfileData.resumename.length
                 )
               };base64,${userProfileData && userProfileData.pdf}`}
               download={userProfileData && userProfileData.resumename}
             >
-              <div
-                style={{
-                  width: "36px",
-                  height: "36px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "#f7f7f9",
-                  color: "#275df5",
-                }}
-                className="rounded-circle"
-              >
-                <FileDownloadOutlinedIcon
-                  style={{ width: "20px", height: "20px" }}
-                />
+              <div className="rounded-circle Resume_Icons">
+                <FileDownloadOutlinedIcon className="Resume_Icons_dimensions" />
               </div>
             </a>
-            <div
-              style={{
-                width: "36px",
-                height: "36px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                background: "#f7f7f9",
-                color: "#275df5",
-              }}
-              className="rounded-circle"
-            >
-              <DeleteOutlineOutlinedIcon
-                style={{ width: "20px", height: "20px" }}
-              />
+            <div className="rounded-circle Resume_Icons">
+              <DeleteOutlineOutlinedIcon className="Resume_Icons_dimensions" />
             </div>
           </div>
         </div>
-        <Container
-          className="p-5 mt-3 rounded d-flex justify-content-center align-items-center flex-column"
-          style={{ border: "1px dashed red" }}
-        >
+        <Container className="p-5 mt-3 rounded d-flex justify-content-center align-items-center flex-column Resume_border">
           <div className="file-input-wrapper">
             <input type="file" id="file-input" className="file-input" />
             <label htmlFor="file-input" className="file-input-label">
@@ -244,7 +224,7 @@ console.log(userProfileData,"power",user)
           <Stack spacing={2}>
             <div className="d-flex gap-5 justify-content-start">
               <Typography>Graduation</Typography>
-              <Typography style={{ marginLeft: "20px" }}>:</Typography>
+              <Typography className="ml-20">:</Typography>
               <Typography>
                 {educational_details && educational_details.graduation_type}
               </Typography>
@@ -258,18 +238,18 @@ console.log(userProfileData,"power",user)
             </div>
             <div className="d-flex gap-5 justify-content-start">
               <Typography>University</Typography>
-              <Typography style={{ marginLeft: "30px" }}>:</Typography>
+              <Typography className="ml-30">:</Typography>
               <Typography>
                 {educational_details && educational_details.university}
               </Typography>
             </div>
           </Stack>
-          <Divider style={{ border: "1px solid red" }} />
+          <Divider className="border border-2" />
 
           <Stack spacing={2}>
             <div className="d-flex gap-5 justify-content-start">
               <Typography>Marks/Grade</Typography>
-              <Typography style={{ marginLeft: "45px" }}>:</Typography>
+              <Typography className="ml-45">:</Typography>
               <Typography>
                 {educational_details && educational_details.marks_Grade}
               </Typography>
@@ -283,7 +263,7 @@ console.log(userProfileData,"power",user)
             </div>
             <div className="d-flex gap-5 justify-content-start">
               <Typography>Course_End_Date</Typography>
-              <Typography style={{ marginLeft: "5px" }}>:</Typography>
+              <Typography className="ml-5px">:</Typography>
               <Typography>
                 {educational_details && educational_details.endDate}
               </Typography>
@@ -299,17 +279,24 @@ console.log(userProfileData,"power",user)
         </div>
         <div className="mb-4">
           <Typography>Gender</Typography>
-          <Typography>{userProfileData && userProfileData.userId.gender}</Typography>
+          <Typography>
+            {userProfileData && userProfileData.userId.gender}
+          </Typography>
         </div>
 
         <div className="mb-4">
           <Typography>Date of birth</Typography>
-          <Typography>{userProfileData && userProfileData.userId.dateOfBirth}</Typography>
+          <Typography>
+            {userProfileData && userProfileData.userId.dateOfBirth}
+          </Typography>
         </div>
 
         <div className="mb-4">
           <Typography>Address</Typography>
-          <Typography>{userProfileData && userProfileData.userId.hometown},{userProfileData && userProfileData.userId.state}</Typography>
+          <Typography>
+            {userProfileData && userProfileData.userId.hometown}{" "}
+            {userProfileData && userProfileData.userId.state}
+          </Typography>
         </div>
       </Paper>
     </Container>

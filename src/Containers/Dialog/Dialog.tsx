@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
+import "./Dialog.css";
 import {
   Container,
   FormControl,
@@ -31,7 +31,7 @@ import { MultipleSelectPlaceholder } from "../MuiComponents/Select";
 import { UserContext } from "../useContext/Context";
 
 export default function ScrollDialog({ button }: { button: any }) {
-  const {user} = React.useContext<any>(UserContext);
+  const { user } = React.useContext<any>(UserContext);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
 
@@ -105,12 +105,9 @@ export default function ScrollDialog({ button }: { button: any }) {
             id="scroll-dialog-description"
             ref={descriptionElementRef}
             tabIndex={-1}
-            style={{ minWidth: "500px" }}
+            className="Dialog_Container"
           >
-            <Container
-              className="p-5 mt-3 rounded d-flex justify-content-center align-items-center flex-column"
-              style={{ border: "1px dashed red" }}
-            >
+            <Container className="p-5 mt-3 rounded d-flex justify-content-center align-items-center flex-column resume_border">
               <div className="file-input-wrapper">
                 <input
                   type="file"
@@ -163,31 +160,8 @@ export default function ScrollDialog({ button }: { button: any }) {
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const Education = ({ button }: { button: any }) => {
-  const {user} = React.useContext<any>(UserContext);
+  const { user } = React.useContext<any>(UserContext);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
   const [educationDetails, setEducationDetails] = useState({
@@ -224,8 +198,7 @@ export const Education = ({ button }: { button: any }) => {
 
     try {
       const response = await axios.put(
-        USERSERVICE +
-          `Save_user_educational_details/${user.id}`,
+        USERSERVICE + `Save_user_educational_details/${user.id}`,
         educationDetails,
         {
           headers: {
@@ -264,34 +237,24 @@ export const Education = ({ button }: { button: any }) => {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title" style={{ padding: "10px 40px" }}>
+        <DialogTitle id="scroll-dialog-title" className="pt-20 pl-10 pb-0 ml-8">
           Education
         </DialogTitle>
-        <FormHelperText
-          style={{
-            marginTop: "0px",
-            lineHeight: "0px",
-            padding: "0px 18px",
-            textWrap: "wrap",
-          }}
-          className="mb-3 mt-2"
-        >
+        <FormHelperText className="mb-3 mt-1 lh-0 text-wrap pt-0 pb-0 pl-18 pr-18">
           Details like course, university, and more, help recruiters identify
           your educational background
         </FormHelperText>
         <DialogContent
           dividers={scroll === "paper"}
-          style={{ padding: "10px 24px 0px 16px", borderRadius: "20px" }}
+          className="rounded-4 pt-10 pr-24 pb-0 pl-16"
         >
           <DialogContentText
             id="scroll-dialog-description"
             ref={descriptionElementRef}
             tabIndex={-1}
-            style={{ padding: "10px 20px", borderRadius: "10px" }}
+            className="pt-10 pb-10 pl-20 pr-20"
           >
-            <Typography style={{ padding: "10px 40px 0px 15px" }}>
-              Education
-            </Typography>
+            <Typography>Education</Typography>
             <MultipleSelectPlaceholder
               placeholder="Graduation"
               data="data"
@@ -300,9 +263,7 @@ export const Education = ({ button }: { button: any }) => {
               onChange={handleChange}
               named="graduation_type"
             />
-            <Typography style={{ margin: "10px 0px" }}>
-              Specialization
-            </Typography>
+            <Typography className="pt-10 pb-10">Specialization</Typography>
             <TextField
               id="outlined-basic"
               variant="outlined"
@@ -312,7 +273,7 @@ export const Education = ({ button }: { button: any }) => {
               value={educationDetails.specilization}
               onChange={handleChange}
             />
-            <Typography style={{ margin: "10px 0px" }}>University</Typography>
+            <Typography className="pt-10 pb-10">University</Typography>
             <TextField
               id="outlined-basic"
               variant="outlined"
@@ -322,10 +283,10 @@ export const Education = ({ button }: { button: any }) => {
               value={educationDetails.university}
               onChange={handleChange}
             />
-            <FormControl style={{ display: "flex" }}>
+            <FormControl className="d-flex">
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                style={{ margin: "10px 0px" }}
+                className="mt-10 mb-10 mr-0 ml-0"
               >
                 Grade System
               </FormLabel>
@@ -333,7 +294,7 @@ export const Education = ({ button }: { button: any }) => {
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="gradeSystem"
-                style={{ display: "flex", justifyContent: "space-around" }}
+                className="d-flex justify-content-around"
                 onChange={handleChange}
                 value={educationDetails.gradeSystem}
               >
@@ -349,7 +310,7 @@ export const Education = ({ button }: { button: any }) => {
                 />
               </RadioGroup>
             </FormControl>
-            <Typography style={{ margin: "10px 0px" }}>Grade/Marks</Typography>
+            <Typography className="pt-10 pb-10">Grade/Marks</Typography>
             <TextField
               id="outlined-basic"
               variant="outlined"
@@ -359,7 +320,7 @@ export const Education = ({ button }: { button: any }) => {
               value={educationDetails.marks_Grade}
               onChange={handleChange}
             />
-            <Typography style={{ margin: "10px 0px" }}>Course</Typography>
+            <Typography className="pt-10 pb-10">Course</Typography>
             <TextField
               id="outlined-basic"
               variant="outlined"
@@ -369,9 +330,7 @@ export const Education = ({ button }: { button: any }) => {
               value={educationDetails.course}
               onChange={handleChange}
             />
-            <Typography style={{ margin: "10px 0px" }}>
-              Name of Institute
-            </Typography>
+            <Typography className="pt-10 pb-10">Name of Institute</Typography>
             <TextField
               id="outlined-basic"
               variant="outlined"
@@ -382,18 +341,9 @@ export const Education = ({ button }: { button: any }) => {
               onChange={handleChange}
             />
 
-            <Typography style={{ margin: "10px 0px" }}>
-              Course Duration
-            </Typography>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                width: "100%",
-                gap: 5,
-              }}
-            >
-              <div style={{ width: "50%" }}>
+            <Typography className="pt-10 pb-10">Course Duration</Typography>
+            <div className="d-flex align-items-center w-100 gap-2">
+              <div className="width-50">
                 <MultipleSelectPlaceholder
                   placeholder="SatrtDate"
                   fullwidth
@@ -404,7 +354,7 @@ export const Education = ({ button }: { button: any }) => {
                 />
               </div>{" "}
               To
-              <div style={{ width: "50%" }}>
+              <div className="width-50">
                 <MultipleSelectPlaceholder
                   placeholder="EndDate"
                   fullwidth
@@ -426,40 +376,8 @@ export const Education = ({ button }: { button: any }) => {
   );
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const PersonalDewtails = ({ button }: { button: any }) => {
-  const {user} = React.useContext<any>(UserContext);
+  const { user } = React.useContext<any>(UserContext);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
   const [personaldetails, setPersonaldetails] = useState({
@@ -468,9 +386,9 @@ export const PersonalDewtails = ({ button }: { button: any }) => {
     mobile: "",
     gender: "Male",
     maritualStaus: "Single",
-    Date:"",
-    Month:"",
-    Year:"",
+    Date: "",
+    Month: "",
+    Year: "",
     physicallyChallenged: "No",
     languageKnown: "",
     fresher_Experienced: "Fresher",
@@ -478,12 +396,12 @@ export const PersonalDewtails = ({ button }: { button: any }) => {
     role: "",
   });
   const [address, setAddress] = useState([
-    { hometown: "", placeholder: "Enter your Hometown",name:"hometown" },
-    { state: "", placeholder: "Enter your State",name:"state"},
-    { district: "", placeholder: "Enter your District",name:"district" },
-    { pincode: "", placeholder: "Enter your Pincode",name:"pincode" },
-    { country: "", placeholder: "Enter your Country",name:"country" },
-    { loandmark: "", placeholder: "Enter your Landmark",name:"loandmark" },
+    { hometown: "", placeholder: "Enter your Hometown", name: "hometown" },
+    { state: "", placeholder: "Enter your State", name: "state" },
+    { district: "", placeholder: "Enter your District", name: "district" },
+    { pincode: "", placeholder: "Enter your Pincode", name: "pincode" },
+    { country: "", placeholder: "Enter your Country", name: "country" },
+    { loandmark: "", placeholder: "Enter your Landmark", name: "loandmark" },
   ]);
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
@@ -492,66 +410,69 @@ export const PersonalDewtails = ({ button }: { button: any }) => {
       ...prevState,
       [name]: value,
     }));
-    
   };
 
-  
-const handleClickOpen = (scrollType: DialogProps["scroll"]) => () => {
+  const handleClickOpen = (scrollType: DialogProps["scroll"]) => () => {
     setOpen(true);
     setScroll(scrollType);
   };
 
-const AddressChange = (e:any,index:Number)=>{
-  const { name, value } = e.target;
-    setAddress(prevAddress =>
-      prevAddress.map((item, i) => 
+  const AddressChange = (e: any, index: Number) => {
+    const { name, value } = e.target;
+    setAddress((prevAddress) =>
+      prevAddress.map((item, i) =>
         i === index ? { ...item, [name]: value } : item
       )
     );
-  
-}
+  };
   const handleClose = () => {
     setOpen(false);
   };
-  const HandleSubmit = async (e:any) => {
+  const HandleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("personal details",personaldetails,address);
+    console.log("personal details", personaldetails, address);
     const formData = new FormData();
-    formData.append("email",personaldetails.email);
-    formData.append("name",personaldetails.name);
-    formData.append("mobilenumber",personaldetails.mobile);
-    formData.append("gender",personaldetails.gender);
-    formData.append("maritualStaus",personaldetails.maritualStaus);
-    formData.append("dateOfBirth",`${personaldetails.Year}-${personaldetails.Month}-${personaldetails.Date}`);
-    formData.append("physicallyChallenged",personaldetails.physicallyChallenged);
-    formData.append("hometown", address[0].hometown || ""); 
-    formData.append("state", address[1].state || ""); 
-    formData.append("district", address[2].district || ""); 
-    formData.append("pincode", address[3].pincode || ""); 
+    formData.append("email", personaldetails.email);
+    formData.append("name", personaldetails.name);
+    formData.append("mobilenumber", personaldetails.mobile);
+    formData.append("gender", personaldetails.gender);
+    formData.append("maritualStaus", personaldetails.maritualStaus);
+    formData.append(
+      "dateOfBirth",
+      `${personaldetails.Year}-${personaldetails.Month}-${personaldetails.Date}`
+    );
+    formData.append(
+      "physicallyChallenged",
+      personaldetails.physicallyChallenged
+    );
+    formData.append("hometown", address[0].hometown || "");
+    formData.append("state", address[1].state || "");
+    formData.append("district", address[2].district || "");
+    formData.append("pincode", address[3].pincode || "");
     formData.append("country", address[4].country || "");
     formData.append("landmark", address[5].loandmark || "");
-    formData.append("languageKnown",personaldetails.languageKnown);
-    formData.append("fresher_Experienced",personaldetails.fresher_Experienced);
-    formData.append("experienced",personaldetails.experienced.toString());
-    formData.append("role",personaldetails.role);
+    formData.append("languageKnown", personaldetails.languageKnown);
+    formData.append("fresher_Experienced", personaldetails.fresher_Experienced);
+    formData.append("experienced", personaldetails.experienced.toString());
+    formData.append("role", personaldetails.role);
 
-
-    try{
-        const response = await axios.patch(USERSERVICE+`update_user_personal_details/${user.id}`,formData,
-          {
-            headers:{
-                 "Content-Type": "application/json"
-            }
-          }
-        )
-     console.log(response.data);
-     setOpen(false);
-    }catch(error:any){
-             console.log(error.message);
+    try {
+      const response = await axios.patch(
+        USERSERVICE + `update_user_personal_details/${user.id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      setOpen(false);
+    } catch (error: any) {
+      console.log(error.message);
     }
-    
   };
-console.log(address)
+  console.log(address);
   const descriptionElementRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
     if (open) {
@@ -572,27 +493,23 @@ console.log(address)
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
-        style={{ padding: "10px" }}
+        className="pd-10"
       >
-        <Typography style={{ margin: "20px 20px 0px 20px" }}>
+        <Typography className="mt-20 mb-20 mr-0 ml-20">
           Personal Details
         </Typography>
 
         <DialogContent
           dividers={scroll === "paper"}
-          style={{ padding: "10px 24px 0px 16px", borderRadius: "20px" }}
+          className="rounded-4 pt-10 pr-24 pb-0 pl-16"
         >
           <DialogContentText
             id="scroll-dialog-description"
             ref={descriptionElementRef}
             tabIndex={-1}
-            style={{
-              padding: "0px 24px 0px 20px",
-              borderRadius: "10px",
-              width: "500px",
-            }}
+            className="Dialog_content_text"
           >
-            <div style={{ marginBottom: "20px" }}>
+            <div className="mb-20">
               <Typography>Name</Typography>
               <TextField
                 id="outlined-basic"
@@ -605,7 +522,7 @@ console.log(address)
                 placeholder="Enter your Name......."
               />
             </div>
-            <div style={{ marginBottom: "20px" }}>
+            <div className="mb-20">
               <Typography>Email</Typography>
               <TextField
                 id="outlined-basic"
@@ -618,7 +535,7 @@ console.log(address)
                 placeholder="Enter your email......."
               />
             </div>
-            <div style={{ marginBottom: "20px" }}>
+            <div className="mb-20">
               <Typography>MobileNumber</Typography>
               <TextField
                 id="outlined-basic"
@@ -631,10 +548,10 @@ console.log(address)
                 placeholder="Enter your mobilenumber......."
               />
             </div>
-            <FormControl style={{ display: "flex" }}>
+            <FormControl className="d-flex">
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                style={{ margin: "10px 0px" }}
+                className="mt-10 mb-10 mr-0 ml-0"
               >
                 Gender
               </FormLabel>
@@ -643,7 +560,7 @@ console.log(address)
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="gender"
                 defaultValue="Male"
-                style={{ display: "flex", justifyContent: "space-around"}}
+                className="d-flex justify-content-around"
                 onChange={handleChange}
                 value={personaldetails.gender}
               >
@@ -666,15 +583,8 @@ console.log(address)
             </FormControl>
             <div>
               <Typography>Date of birth</Typography>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  width: "100%",
-                  columnGap: 5,
-                }}
-              >
-                <div style={{ width: "33%" }}>
+              <div className="Date_of_birth">
+                <div className="width-33">
                   <MultipleSelectPlaceholder
                     placeholder="Date"
                     fullwidth
@@ -685,7 +595,7 @@ console.log(address)
                   />
                 </div>
 
-                <div style={{ width: "33%" }}>
+                <div className="width-33">
                   <MultipleSelectPlaceholder
                     placeholder="Month"
                     fullwidth
@@ -695,7 +605,7 @@ console.log(address)
                     named="Month"
                   />
                 </div>
-                <div style={{ width: "33%" }}>
+                <div className="width-33">
                   <MultipleSelectPlaceholder
                     placeholder="Year"
                     fullwidth
@@ -707,10 +617,10 @@ console.log(address)
                 </div>
               </div>
             </div>
-            <FormControl style={{ display: "flex" }}>
+            <FormControl className="d-flex">
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                style={{ margin: "10px 0px" }}
+                className="mt-10 mb-10 pl-0 pr-0"
               >
                 Maritual Status
               </FormLabel>
@@ -719,7 +629,7 @@ console.log(address)
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="maritualStaus"
                 defaultValue="Single"
-                style={{ display: "flex", justifyContent: "space-around"}}
+                className="d-flex justify-content-around"
                 onChange={handleChange}
                 value={personaldetails.maritualStaus}
               >
@@ -733,46 +643,31 @@ console.log(address)
                   control={<Radio />}
                   label="Married"
                 />
-
               </RadioGroup>
             </FormControl>
-            <div
-              style={{
-                border: "1px solid red",
-                borderRadius: "10px",
-                padding: "10px",
-              }}
-            >
+            <div className="address_main_container">
               <Typography>Permenant Address</Typography>
-              <div
-                style={{
-                  gap: 4,
-                  display: "flex",
-                  flexWrap: "wrap",
-                  marginTop: "10px",
-                }}
-              >
-                {address && address?.map((data:any,index:Number) => {
-                  return (
-                    
-                    <TextField
-                      id="outlined-basic"
-                      variant="outlined"
-                      style={{ marginBottom: "20px" }}
-                      className="custom-textfield"
-                      name={data.name}
-                      value={data[data.name]}
-                      onChange={(e)=>AddressChange(e,index)}
-                      placeholder={`${data.placeholder}...`} />
-                   
-                  );
-                })}
+              <div className="address_container gap-1">
+                {address &&
+                  address?.map((data: any, index: Number) => {
+                    return (
+                      <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        className="custom-textfield mb-20"
+                        name={data.name}
+                        value={data[data.name]}
+                        onChange={(e) => AddressChange(e, index)}
+                        placeholder={`${data.placeholder}...`}
+                      />
+                    );
+                  })}
               </div>
             </div>
-            <FormControl style={{ display: "flex" }}>
+            <FormControl className="d-flex">
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                style={{ margin: "10px 0px" }}
+                className="mt-10 mb-10 mr-0 ml-0"
               >
                 Are you physically handicapped?
               </FormLabel>
@@ -781,25 +676,16 @@ console.log(address)
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="physicallyChallenged"
                 defaultValue="Yes"
-                style={{ display: "flex", justifyContent: "space-around"}}
+                className="d-flex justify-content-around"
                 onChange={handleChange}
                 value={personaldetails.physicallyChallenged}
               >
-                <FormControlLabel
-                  value="Yes"
-                  control={<Radio />}
-                  label="Yes"
-                />
-                <FormControlLabel
-                  value="No"
-                  control={<Radio />}
-                  label="No"
-                />
-
+                <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+                <FormControlLabel value="No" control={<Radio />} label="No" />
               </RadioGroup>
             </FormControl>
 
-            <div style={{ marginBottom: "20px" }}>
+            <div className="mb-20">
               <Typography>Language Known</Typography>
               <TextField
                 id="outlined-basic"
@@ -813,10 +699,10 @@ console.log(address)
                 placeholder="Language known......."
               />
             </div>
-            <FormControl style={{ display: "flex" }}>
+            <FormControl className="d-flex">
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                style={{ margin: "10px 0px" }}
+                className="mt-10 mb-10 mr-0 ml-0"
               >
                 Fresher/Experienced
               </FormLabel>
@@ -825,7 +711,7 @@ console.log(address)
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="fresher_Experienced"
                 defaultValue="Fresher"
-                style={{ display: "flex", justifyContent: "space-around"}}
+                className="d-flex justify-content-around"
                 onChange={handleChange}
                 value={personaldetails.fresher_Experienced}
               >
@@ -839,10 +725,9 @@ console.log(address)
                   control={<Radio />}
                   label="Experienced"
                 />
-
               </RadioGroup>
             </FormControl>
-            <div style={{ marginBottom: "20px" }}>
+            <div className="mb-20">
               <Typography>Experience years</Typography>
               <TextField
                 id="outlined-basic"
@@ -855,7 +740,7 @@ console.log(address)
                 placeholder="Enter your Experience......"
               />
             </div>
-            <div style={{ marginBottom: "20px" }}>
+            <div className="mb-20">
               <Typography>Role</Typography>
               <TextField
                 id="outlined-basic"

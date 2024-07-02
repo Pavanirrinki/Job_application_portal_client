@@ -1,41 +1,57 @@
 import { Paper } from "@mui/material";
 import React, { useRef, useState } from "react";
 import "./ForgotPassword.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { USERSERVICE } from "../../Containers/Env/Env";
 type Props = {};
 
 const ForgotPassword = (props: Props) => {
-    const [otp, setOtp] = useState(new Array(6).fill(''));
-    const inputsRef = useRef<any>([]);
-  
-    const handleInput = (e:any, index:number) => {
-      const value = e.target.value;
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
-  
-      if (value.length === 1 && index < inputsRef.current.length - 1) {
-        inputsRef.current[index + 1].focus();
+  const navigate = useNavigate();
+  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const location = useLocation();
+  const inputsRef = useRef<any>([]);
+
+  const handleInput = (e: any, index: number) => {
+    const value = e.target.value;
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    if (value.length === 1 && index < inputsRef.current.length - 1) {
+      inputsRef.current[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (e: any, index: number) => {
+    if (e.key === "Backspace" && index > 0) {
+      if (e.target.value === "") {
+        inputsRef.current[index - 1].focus();
+      } else {
+        const newOtp = [...otp];
+        newOtp[index] = "";
+        setOtp(newOtp);
       }
-    };
-  
-    const handleKeyDown = (e:any, index:number) => {
-      if (e.key === 'Backspace' && index > 0) {
-        if (e.target.value === '') {
-          inputsRef.current[index - 1].focus();
-        } else {
-          const newOtp = [...otp];
-          newOtp[index] = '';
-          setOtp(newOtp);
-        }
-      }
-    };
-  
-    const handleSubmit = (e:any) => {
-      e.preventDefault();
-      const otpValue = otp.join('');
-      console.log("Entered OTP is:", otpValue);
-      // Do something with the OTP value
-    };
+    }
+  };
+  console.log(location.state);
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const otpValue = otp.join("");
+    console.log("Entered OTP is:", otpValue);
+ 
+    axios
+      .post(USERSERVICE + "verify_otp", {
+        email:location.state,
+        otp:otpValue
+      },{
+        headers:{
+            "Content-Type": "application/json"
+       }
+      })
+      .then((res) => {console.log(res.data);navigate("/changePassword",{state:location.state})})
+      .catch((error) => console.log(error.message));
+  };
   return (
     <div className="m-5 d-flex justify-content-center">
       <Paper>
@@ -56,7 +72,6 @@ const ForgotPassword = (props: Props) => {
                     name="otp-field[]"
                     maxLength={1}
                     ref={(el) => (inputsRef.current[index] = el)}
-                   
                     onChange={(e) => handleInput(e, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                   />

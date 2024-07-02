@@ -11,25 +11,22 @@ export const Footer = (props: Props) => {
   return (
     <Grid
       container
-      style={{ background: "white", padding: "10px"}}
+      className="bg-white pd-10"
     >
       <Grid item xs={1}></Grid>
       <Grid
         item
         xs={2}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
+        className="d-flex flex-column align-items-center"
       >
         <img
           src="download.svg"
           alt="logo"
-          style={{ height: "175px", width: "300px" }}
+          
+          className="footer_logo"
         />
         <Typography className="media_title">Connect with us</Typography>
-        <div style={{ gap: 10, display: "flex", color: "#b3b3b3" }}>
+        <div className="social_media_icons gap-2">
           <FacebookIcon />
           <InstagramIcon />
           <TwitterIcon />
@@ -39,14 +36,7 @@ export const Footer = (props: Props) => {
       <Grid
         item
         xs={2}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          gap: 15,
-          marginTop: "30px",
-        }}
+        className="gap-3 d-flex justify-content-start flex-column align-items-center mt-30"
       >
         <Typography className="footer_content">About Us</Typography>
         <Typography className="footer_content">Careers</Typography>
@@ -57,14 +47,8 @@ export const Footer = (props: Props) => {
       <Grid
         item
         xs={2}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          gap: 15,
-          marginTop: "30px",
-        }}
+       className="gap-3 d-flex justify-content-start flex-column align-items-center mt-30"
+        
       >
         <Typography className="footer_content">Help Center</Typography>
         <Typography className="footer_content">Summons/Notices</Typography>
@@ -75,14 +59,7 @@ export const Footer = (props: Props) => {
       <Grid
         item
         xs={2}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          gap: 15,
-          marginTop: "30px",
-        }}
+        className="gap-3 d-flex justify-content-start flex-column align-items-center mt-30"
       >
         <Typography className="footer_content">Help Center</Typography>
         <Typography className="footer_content">Summons/Notices</Typography>
@@ -90,13 +67,15 @@ export const Footer = (props: Props) => {
         <Typography className="footer_content">Grievances</Typography>
         <Typography className="footer_content">Report issue</Typography>
       </Grid>
-      <Grid item xs={3} style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",margin:"0px"}}>
-        <div style={{border:"1px solid  #cccccc",padding:"10px",borderRadius:"20px"}}>
+      <Grid item xs={3} 
+      
+      className="d-flex justify-content-center align-items-center flex-column m-0">
+        <div  className="border border-grey pd-10 rounded-4">
        <Typography className="playstore_content">Apply on the go</Typography>
        <Typography className="playstore_content">Get real-time job updates on our App</Typography>
-       <div className="align-items-center" style={{gap:3,marginTop:"10px"}}>
-       <img src="android-app_v1.png" style={{height:"44px",width:"130x"}} alt="logo"/>
-       <img src="ios-app_v1.png" style={{height:"44px",width:"130px"}} alt="logo"/>
+       <div className="align-items-center gap-1 mt-10" >
+       <img src="android-app_v1.png" className="download_logos" alt="logo"/>
+       <img src="ios-app_v1.png" className="download_logos" alt="logo"/>
        </div>
        </div>
       </Grid>

@@ -4,7 +4,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import useMovement from "../../CustomHooks/HandleForwardandBackward";
 import { Star } from '@mui/icons-material';
-
+import "./TopCompanies.css"
 type Props = {
   data?:any;
   title?:string;
@@ -15,40 +15,23 @@ const TopCompanies = (props: Props) => {
 
   return (
     <Paper>
-    <Container style={{ padding: "20px 0px", marginBottom: "10px" }}>
+    <Container  className="mb-10 pt-20 pb-20 p-0">
       <Container
-        className="d-flex justify-content-between"
-        style={{ margin: "10px" }}
-      > <Typography style={{ fontSize: "18px", fontWeight: "700" }}>
+        className="d-flex justify-content-between md-10"
+      
+      > <Typography className='fs-18 fw-700'>
       Top Companies
      </Typography>
      <Typography
-       style={{ fontSize: "13px", color: "#275df5", fontWeight: "700" }}
+      
+       className='fs-14 text-primary fw-700'
      >
        View All
      </Typography>
      </Container>
-     <Container
-          style={{
-            display: "flex",
-            flexWrap: "nowrap",
-            alignItems: "center",
-            position: "relative",
-          }}
-        >
+     <Container className='d-flex flex-nowrap align-items-center position-relative'>
           {currentIndex != 0 && (
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                top: "50%",
-                transform: "translateY(-50%)",
-                background: "rgba(30, 10, 58, .5)",
-                color: "white",
-                borderRadius: "50%",
-                padding: "3px",
-                display: "flex",
-              }}
+            <div className='forward_Icon'
             >
               <ChevronLeftIcon onClick={moveBackward} />
             </div>
@@ -58,20 +41,14 @@ const TopCompanies = (props: Props) => {
             return (
               <Paper
                 key={index}
-                style={{
-                  height: "150px",
-                  minWidth: "200px",
-                  maxWidth: "200px",
-                  margin: "10px 10px 0px 10px",
-                  borderRadius: "10px",
-                }}
+            className='paper_contaner'
                 elevation={4}
               >
                 <Container className="d-flex justify-content-center align-items-start pt-3 pb-2">
                   <img
                     src={data?.img}
                     alt="logo"
-                    style={{ height: "50px", width: "50px" }}
+                    className='company_logo'
                   />
               
                 </Container>
@@ -93,18 +70,7 @@ const TopCompanies = (props: Props) => {
             );
           })}
           {currentIndex != 4 && (
-            <div
-              style={{
-                position: "absolute",
-                right: 0,
-                top: "50%",
-                transform: "translateY(-50%)",
-                background: "rgba(30, 10, 58, .5)",
-                borderRadius: "50%",
-                padding: "3px",
-                display: "flex",
-                color: "white",
-              }}
+            <div className='backward_Icon'
             >
               <ChevronRightIcon onClick={moveForward} />
             </div>

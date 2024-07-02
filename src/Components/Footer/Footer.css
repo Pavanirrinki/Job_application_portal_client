@@ -16,3 +16,16 @@
     color:	 #b3b3ff;
     font-size: 16px !important;
 }
+.footer_logo{
+  height: 175px;
+  width: 300px;
+}
+.social_media_icons{
+    
+    display: flex;
+    color: #b3b3b3;
+}
+.download_logos{
+height:44px;
+width:130px;
+}

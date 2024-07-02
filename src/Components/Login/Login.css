@@ -1,7 +1,6 @@
 .container{
 margin-bottom: 30px;
 padding-top: 5%;
-
 }
 
 .heading{
@@ -31,4 +30,10 @@ color: #091e42;
         opacity:0.9;
       padding-top: 20px;
       
+}
+.Google_img{
+ width: 20px;
+ margin-left: 25%;
+  height:20px;
+  margin-right: 5px;
 }

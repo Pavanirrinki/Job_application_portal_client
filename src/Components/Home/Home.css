@@ -1,14 +1,13 @@
+.home_container{
+    background-color: #f2f2f2;
+}
+
 .content_container{
-    
-
-    width:100%;
-  
-
+     width:100%;
     display: flex;
     justify-content: center;
     gap: 30px;
-    
-    
+    height:100vh ;
 }
 .profile_container{
   display: flex;
@@ -65,9 +64,9 @@
 }
 .profile_performance_content{
     font-weight: 700 !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
     opacity: 0.7;
-   
+   margin-bottom: 0px;
 }
 .Info_Icon{
     font-size: 16px !important;
@@ -238,4 +237,15 @@ margin-bottom: 10px !important;
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
   }
-  
+  .profile_name{
+    
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+.KeyboardArrowRightIcon{
+    height: 24px;
+    width: 24px;
+}
+.user_tabs_margin{
+    margin: 20px 10px;
+}

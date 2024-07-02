@@ -1,0 +1,35 @@
+.forward_Icon{
+ 
+        position: absolute;
+        left: 0;
+        top: 50%;
+        color: white;
+        border-Radius: 50%;
+        padding: 3px;
+        display: flex;
+        background: rgba(30, 10, 58, .5);
+        transform: translateY(-50%);
+}
+           
+.backward_Icon{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    color: white;
+    border-Radius: 50%;
+    padding: 3px;
+    display: flex;
+    background: rgba(30, 10, 58, .5);
+    transform: translateY(-50%);
+}
+.company_logo{
+    height: 50px;
+    width: 50px;
+}
+.paper_contaner{
+    height: 150px;
+   min-width: 200px;
+    max-width: 200px;
+    margin: 10px 10px 0px 10px;
+   border-radius: 10px;
+}

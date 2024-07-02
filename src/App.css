@@ -69,12 +69,84 @@ padding:30px 30px 0px 30px;
 .pd-20{
   padding: 20px;
 }
+.pd-90{
+  padding-top: 90px;
+}
+.pd-10{
+  padding: 10px !important;
+}
+.pt-10{
+  padding-top: 10px !important;
+}
+.pb-10{
+  padding-bottom: 10px !important;
+}
+.pl-10{
+  padding-left: 10px !important;
+}
+.pr-10{
+  padding-right: 10px !important;
+}
+.pt-20{
+  padding-top: 20px !important;
+}
+.pb-20{
+  padding-bottom: 20px !important;
+}
+.pl-20{
+  padding-left: 20px !important;
+}
+.pr-20{
+  padding-right: 20px !important;
+}
+.pt-18{
+  padding-top: 18px !important;
+}
+.pb-18{
+  padding-bottom: 18px !important;
+}
+.pl-18{
+  padding-left: 18px !important;
+}
+.pr-18{
+  padding-right: 18px !important;
+}
+.pt-24{
+  padding-top: 24px !important;
+}
+.pb-24{
+  padding-bottom: 24px !important;
+}
+.pl-24{
+  padding-left: 24px !important;
+}
+.pr-24{
+  padding-right: 24px !important;
+}
+.pt-16{
+  padding-top: 16px !important;
+}
+.pb-16{
+  padding-bottom: 16px !important;
+}
+.pl-16{
+  padding-left: 16px !important;
+}
+.pr-16{
+  padding-right: 16px !important;
+}
 /* ------------------------------------ALL MARGIN STYLES------------------------------------------------- */
 .md-10{
    margin: 10px !important;
 }
 .ml-30{
-  margin-left: 30px;
+  margin-left: 30px !important;
+}
+.mb-30{
+  margin-bottom: 30px !important;
+}
+.mt-30{
+  margin-top: 30px !important;
 }
 .ml-15{
   margin-left: 15px !important;
@@ -84,6 +156,36 @@ padding:30px 30px 0px 30px;
 }
 .mr-12{
   margin-right: 12px !important;
+}
+.mt-10{
+  margin-top: 10px !important;
+}
+.mb-10{
+  margin-bottom: 10px !important;
+}
+.mt-20{
+  margin-top: 20px !important;
+}
+.mb-20{
+  margin-bottom: 20px !important;
+}
+.m-20{
+  margin: 20px !important;
+}
+.ml-20{
+  margin-left: 20px !important;
+}
+.ml-5px{
+  margin-left: 5px !important;
+}
+.ml-45{
+  margin-left: 45px !important;
+}
+.mb-10{
+  margin-bottom: 10px !important;
+}
+.ml-50{
+  margin-left: 50px !important;
 }
 /* -----------------------------------JUSTIFY-CONTENT-------------------------------------------------- */
 .flex-start{
@@ -123,8 +225,17 @@ align-items:center;
 .fs-12{
   font-size: 12px !important;
 }
+.fs-18{
+  font-size: 18px !important;
+}
 .fs-14{
   font-size: 14px !important;
+}
+.fs-50{
+  font-size: 50px !important;
+}
+.fs-20{
+  font-size: 20px !important;
 }
 .hideScrollbar {
   scrollbar-width: none; /* For Firefox */
@@ -140,4 +251,55 @@ align-items:center;
 /* --------------------------------------------CURSOR------------------------------------------------------- */
 .cursor-pointer{
   cursor: pointer !important;
+}
+
+
+/* --------------------------------------------COLORS------------------------------------------------------- */
+.color_8c8c8c{
+   color:#8c8c8c !important;
+}
+.color_717b9e{
+  color: #717b9e !important;
+}
+/* --------------------------------------------FONT WEIGHTS------------------------------------------------------- */
+.fw-700{
+  font-weight: 700 !important;
+}
+.fw-550{
+  font-weight: 550 !important;
+}
+.fw-600{
+  font-weight: 600 !important;
+}
+/* --------------------------------------------OPACITY------------------------------------------------------- */
+.opacity01{
+   opacity: 0.1 !important;
+}
+.opacity02{
+  opacity: 0.2 !important;
+}
+.opacity03{
+  opacity: 0.3 !important;
+}
+.opacity04{
+  opacity: 0.4 !important;
+}
+.opacity05{
+  opacity: 0.5 !important;
+}
+.opacity06{
+  opacity: 0.6 !important;
+}
+.opacity07{
+  opacity: 0.7 !important;
+}
+.opacity08{
+  opacity: 0.8 !important;
+}
+.opacity09{
+  opacity: 0.9 !important;
+}
+/* --------------------------------------------FONT WEIGHTS------------------------------------------------------- */
+.lh-0{
+  line-height: 0px !important;
 }

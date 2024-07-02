@@ -99,3 +99,23 @@ width: 100%;
     font-size: 16px;
     color: #555;
 }
+.Resume_Icons{
+width: 36px;
+height: 36px;
+display: flex;
+justify-content: center;
+align-items: center;
+background: #f7f7f9;
+color: #275df5;
+}
+.Resume_Icons_dimensions{
+    width: 24px;
+    height: 24px;
+}
+.Resume_border{
+ border: 1px dashed red;
+}
+.details_container{
+ max-width: 400px;
+word-break: break-all;
+}

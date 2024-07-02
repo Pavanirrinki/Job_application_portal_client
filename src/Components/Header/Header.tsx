@@ -28,15 +28,9 @@ const Header = (props: Props) => {
     <>
       <Grid
         container
-        className="flex-spacearound"
+        className="flex-spacearound Header_Container"
         xs={12}
-        style={{
-          background: "white",
-          width: "100%",
-          position: "fixed",
-          zIndex: 900,
-          boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-        }}
+        
       >
         <Grid item className="align-items-center" gap={8}>
           <img src="portal_icon.webp" alt="logo" className="logo-styles" />
@@ -68,12 +62,8 @@ const Header = (props: Props) => {
         
        
           <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginLeft: "50px",
-            }}
+           
+            className="d-flex justify-content-center align-items-center ml-50"
           >
             <Button className="Jobs_360">Jobs 360</Button>
             <Badge badgeContent={4} color="error">
@@ -84,12 +74,8 @@ const Header = (props: Props) => {
             </Badge>
             <Badge badgeContent={4} color="error">
               <div
-                className="ml-30"
-                style={{
-                  border: "1px solid #d9d9d9",
-                  borderRadius: "20px",
-                  padding: "0px 10px",
-                }}
+                className="ml-30 border border-grey rounded-pill pl-10 pr-10"
+               
               >
                 <ListIcon className="fs-30" />
 
