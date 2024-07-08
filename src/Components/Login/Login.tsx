@@ -10,7 +10,7 @@ import {
 import "./Login.css";
 import DoneIcon from "@mui/icons-material/Done";
 import { useState } from "react";
-import { USERSERVICE } from "../../Containers/Env/Env";
+import { COMPANYSERVICE, USERSERVICE } from "../../Containers/Env/Env";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 type Props = {};
@@ -19,11 +19,13 @@ const Login = (props: Props) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginAs,setLoginAs] = useState(false);
   const HandleSubmit = (e: any) => {
+
     e.preventDefault();
     axios
       .post(
-        USERSERVICE + "login",
+       loginAs ? COMPANYSERVICE + "login" : USERSERVICE + "login",
         { email, password },
         {
           headers: {
@@ -38,6 +40,7 @@ const Login = (props: Props) => {
             `Job_application_user_data`,
             JSON.stringify(res.data)
           );
+       
           return navigate("/");
         }
       })
@@ -46,6 +49,7 @@ const Login = (props: Props) => {
       );
   };
 
+ 
   const SendOtp = (e: any) => {
     e.preventDefault();
     if (email != "") {
@@ -102,7 +106,7 @@ const Login = (props: Props) => {
             <Button variant="outlined">Register for free</Button>
           </div>
           <div className="flex-end">
-            <img src="LoginInfo.png" alt="logo" className="Logininfo-png" />
+            <img src="/LoginInfo.png" alt="logo" className="Logininfo-png" />
           </div>
         </Paper>
       </Grid>
@@ -133,6 +137,17 @@ const Login = (props: Props) => {
                 setPassword(e.target.value);
               }}
             />
+            <div className="d-flex justify-content-between">
+            <Typography
+              className="text-end ml-15 text-primary fw-700 cursor-pointer"
+              variant="caption"
+              display="block"
+              gutterBottom
+              onClick={()=>setLoginAs((prev)=>!prev)}
+              
+  >
+             {loginAs ? 'Login As Employeer':"Login As Recruiter"} 
+            </Typography>
             <Typography
               className="text-end mr-12 text-primary cursor-pointer"
               variant="caption"
@@ -142,6 +157,7 @@ const Login = (props: Props) => {
             >
               Forgot password?
             </Typography>
+            </div>
             <div className="d-flex justify-content-center flex-column">
               <Button
                 variant="contained"

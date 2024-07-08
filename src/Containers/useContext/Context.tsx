@@ -14,7 +14,7 @@ const [userProfileData,setUserProfileData] = useState<any>(null);
 const [educational_details,setEducational_details] = useState<any>(null);
     const userDataString = localStorage.getItem("Job_application_user_data");
     const userData  = userDataString ? JSON.parse(userDataString) : null;
-    console.log(userData,'p')
+    console.log(userData,'context',userProfileData)
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -35,7 +35,7 @@ const [educational_details,setEducational_details] = useState<any>(null);
   
       fetchData();
     }, []);
- 
+
   return (
     <UserContext.Provider value={{user:userData,userProfileData,educational_details}}>
       {children}

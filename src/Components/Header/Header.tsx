@@ -33,7 +33,7 @@ const Header = (props: Props) => {
         
       >
         <Grid item className="align-items-center" gap={8}>
-          <img src="portal_icon.webp" alt="logo" className="logo-styles" />
+          <img src="/portal_icon.webp" alt="logo" className="logo-styles" />
           <Badge badgeContent={4} color="error">
             <Typography className="pd-6">Jobs</Typography>
           </Badge>

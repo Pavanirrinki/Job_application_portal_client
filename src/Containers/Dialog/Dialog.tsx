@@ -160,6 +160,18 @@ export default function ScrollDialog({ button }: { button: any }) {
   );
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 export const Education = ({ button }: { button: any }) => {
   const { user } = React.useContext<any>(UserContext);
   const [open, setOpen] = React.useState(false);
@@ -256,7 +268,7 @@ export const Education = ({ button }: { button: any }) => {
           >
             <Typography>Education</Typography>
             <MultipleSelectPlaceholder
-              placeholder="Graduation"
+              placeholder="Select Graduation..."
               data="data"
               fullwidth
               renderData={names}
@@ -345,7 +357,7 @@ export const Education = ({ button }: { button: any }) => {
             <div className="d-flex align-items-center w-100 gap-2">
               <div className="width-50">
                 <MultipleSelectPlaceholder
-                  placeholder="SatrtDate"
+                  placeholder="Select SatrtDate..."
                   fullwidth
                   data="data"
                   renderData={Year}
@@ -356,7 +368,7 @@ export const Education = ({ button }: { button: any }) => {
               To
               <div className="width-50">
                 <MultipleSelectPlaceholder
-                  placeholder="EndDate"
+                  placeholder="Select EndDate..."
                   fullwidth
                   data="data"
                   renderData={Year}
@@ -375,6 +387,28 @@ export const Education = ({ button }: { button: any }) => {
     </React.Fragment>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const PersonalDewtails = ({ button }: { button: any }) => {
   const { user } = React.useContext<any>(UserContext);
@@ -464,9 +498,15 @@ export const PersonalDewtails = ({ button }: { button: any }) => {
           headers: {
             "Content-Type": "application/json",
           },
+
         }
       );
       console.log(response.data);
+      localStorage.setItem(
+        `Job_application_user_data`,
+        JSON.stringify(response.data)
+      );
+   
       setOpen(false);
     } catch (error: any) {
       console.log(error.message);
@@ -586,7 +626,7 @@ export const PersonalDewtails = ({ button }: { button: any }) => {
               <div className="Date_of_birth">
                 <div className="width-33">
                   <MultipleSelectPlaceholder
-                    placeholder="Date"
+                    placeholder="Select Date..."
                     fullwidth
                     data="data"
                     renderData={Dates}
@@ -597,7 +637,7 @@ export const PersonalDewtails = ({ button }: { button: any }) => {
 
                 <div className="width-33">
                   <MultipleSelectPlaceholder
-                    placeholder="Month"
+                    placeholder="Select Month..."
                     fullwidth
                     data="data"
                     renderData={months}
@@ -607,7 +647,7 @@ export const PersonalDewtails = ({ button }: { button: any }) => {
                 </div>
                 <div className="width-33">
                   <MultipleSelectPlaceholder
-                    placeholder="Year"
+                    placeholder="Select Year..."
                     fullwidth
                     data="data"
                     renderData={Year}

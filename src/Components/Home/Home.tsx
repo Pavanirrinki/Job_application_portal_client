@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
   Divider,
@@ -26,6 +26,9 @@ import {
 } from "../../Containers/MockData/MockData";
 import TopCompanies from "../../Containers/MainContainer/TopCompanies/TopCompanies";
 import { UserContext } from "../../Containers/useContext/Context";
+import axios from "axios";
+import { JOBSSERVICE } from "../../Containers/Env/Env";
+
 
 type Props = {};
 const MiddleContainer: any = {
@@ -33,33 +36,41 @@ const MiddleContainer: any = {
     marginTop: "10px",
     height: "110vh",
     overflow: "auto",
+    width: "600px",
   },
 };
 
 const Home = (props: Props) => {
-  const { user } = useContext<any>(UserContext);
-
-  const navigate = useNavigate();
-
+  const { user,userProfileData,educational_details } = useContext<any>(UserContext);
+const [jobDetails,setJobDetails] = useState<any>(null);
+const [userdetails,setUserdetails] = useState<any>(null);
+const navigate = useNavigate();
+useEffect(()=>{
+   axios.get(JOBSSERVICE+"fetch_all_jobs").then((res)=>setJobDetails(res.data)).catch((error)=>console.log(error.message))
+   setUserdetails(user);
+   
+},[])
+console.log(userProfileData,"home")
   return (
     <>
-      <div className="home_container">
-        <Grid container className="content_container">
-          <Grid item xs={2} className="mt-10">
+      <div className="home_container" >
+        <Grid container className="content_container" >
+          <Grid item xs={2} className="mt-10" >
             <Paper className="profile_container" elevation={5}>
               <img
                 src="userdp.svg"
                 className="profile_image"
                 alt="profile_pic"
               />
-              <Typography variant="h6" className="profile_name fw-700">
-                {user ? user?.name : "Update name"}
+              <Typography variant="h6" className="profile_name">
+                {userdetails ? ((userdetails && userdetails?.name?.length >20) ? `${userdetails?.name.length.substring(0, 17)}....` : userdetails.name)  : "Update name 12345....."}
               </Typography>
               <Typography variant="subtitle1" className="data">
                 B.Tech/B.E.Mechanical
               </Typography>
               <Typography variant="body1" className="data1">
-                @JNTU College of Engineering..
+             
+                @ {educational_details && educational_details?.university?.length > 32 ? `${educational_details?.university.substring(0, 32)}...`:userProfileData?.university}
               </Typography>
               <Typography className="update_period">
                 Last updated 4m ago
@@ -146,17 +157,17 @@ const Home = (props: Props) => {
           </Grid>
           <Grid item xs={4} style={MiddleContainer.container} className="hideScrollbar">
             <ContentComponent
-              data={Job_details}
+              data={jobDetails}
               title="Recommended jobs for you"
             />
             <TopCompanies data={Companies_data} title="Top Companies" />
             <ContentComponent
-              data={Job_details}
+              data={jobDetails}
               title="Recommended jobs for you"
             />
             <TopCompanies data={Companies_data} title="Top Companies" />
             <ContentComponent
-              data={Job_details}
+              data={jobDetails}
               title="Recommended jobs for you"
             />
             <TopCompanies data={Companies_data} title="Top Companies" />

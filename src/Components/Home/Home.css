@@ -15,6 +15,7 @@
   padding: 30px 30px 0px 30px;
   flex-direction: column;
   align-items: center;
+  
 }
 .profile_image{
     height: 80px; 
@@ -60,7 +61,7 @@
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-  
+  margin-top: 10px;
 }
 .profile_performance_content{
     font-weight: 700 !important;
@@ -232,15 +233,19 @@ margin-bottom: 10px !important;
 .hideScrollbar {
 
     margin-top: 10px !important;
-    height: 95% !important;
+    height: 90% !important;
     overflow: auto !important;
+    overflow-x: hidden !important; /* Hide horizontal scrollbar */
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
   }
   .profile_name{
     
-    font-size: 16px;
+    font-size: 14px !important;
     margin-bottom: 3px;
+    font-weight: bolder !important;
+ 
+
 }
 .KeyboardArrowRightIcon{
     height: 24px;

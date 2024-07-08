@@ -28,8 +28,7 @@ import { UserContext } from "../../Containers/useContext/Context";
 type Props = {};
 
 const UpdateProfile = (props: Props) => {
-  const { user, userProfileData, educational_details } =
-    useContext<any>(UserContext);
+  const { user, userProfileData, educational_details } = useContext<any>(UserContext);
   const [image, setImage] = useState<any>(null);
 
   function formatDate(dateString: string): string {
@@ -94,8 +93,8 @@ const UpdateProfile = (props: Props) => {
         </Stack>
         <Stack>
           <div className="d-flex flex-row gap-3 align-items-center">
-            <Typography>
-              {userProfileData && userProfileData.userId.name}
+            <Typography className="fw-bold fs-18">
+              {user && user.name}
             </Typography>
             <ScrollDialog button={<ModeOutlinedIcon />} />
           </div>
@@ -127,13 +126,13 @@ const UpdateProfile = (props: Props) => {
               <div className="d-flex flex-row gap-3 align-items-center">
                 <LocalPhoneOutlinedIcon />
                 <Typography>
-                  +91 {userProfileData && userProfileData.userId.mobilenumber}
+                  +91 {user && user.mobilenumber}
                 </Typography>
               </div>
               <div className="d-flex flex-row gap-3 align-items-center details_container">
                 <EmailOutlinedIcon />
                 <Typography>
-                  {userProfileData && userProfileData.userId.email}
+                  {user && user.email}
                 </Typography>
               </div>
             </Stack>
@@ -144,12 +143,10 @@ const UpdateProfile = (props: Props) => {
       <Paper className="p-4 rounded mb-3">
         <div className="d-flex justify-content-between align-items-center">
           <div>
-            <Typography className="pb-2">Resume</Typography>
+            <Typography className="pb-2">Resume : <span>{userProfileData && userProfileData.resumename}</span></Typography>
+          
             <Typography>
-              {userProfileData && userProfileData.resumename}
-            </Typography>
-            <Typography>
-              Uploaded on{" "}
+              Uploaded on :{" "}
               {userProfileData && formatDate(userProfileData.uploadeddate)}
             </Typography>
           </div>

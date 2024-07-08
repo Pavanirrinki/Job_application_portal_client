@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
-import { COMPANYSERVICE, USERSERVICE } from "../../Containers/Env/Env";
+import { COMPANYSERVICE, USERSERVICE, profileimage } from "../../Containers/Env/Env";
 
 import { useNavigate } from "react-router-dom";
 
@@ -53,7 +53,7 @@ export const Register = (props: Props) => {
       formData.append("mobilenumber", mobile);
       formData.append("registerAs", registerAs);
       formData.append("workingTechnologies", workingTechnologies);
-
+      formData.append("profile_pic",profileimage);
       try {
         const url =
           registerAs === "Employee"
@@ -61,11 +61,7 @@ export const Register = (props: Props) => {
             : COMPANYSERVICE + "save";
         const payload = registerAs === "Employee" ? Employeepayload : formData;
 
-        const { data } = await axios.post(url, payload, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const { data } = await axios.post(url, payload);
 
         console.log(data);
         setEmail("");
@@ -129,7 +125,7 @@ export const Register = (props: Props) => {
           >
             <Paper elevation={4} className="text-center">
               <div>
-                <img src="info.png" alt="info" className="img_dimensions" />
+                <img src="/info.png" alt="info" className="img_dimensions" />
               </div>
               <h3>On registering, you can</h3>
               <Typography className="text-center p-2" variant="body2">
@@ -309,6 +305,8 @@ export const Register = (props: Props) => {
                           setWorkingTechnologies(() => e.target.value)
                         }
                       />
+
+
                     </div>
                   )}
                 </FormControl>

@@ -19,12 +19,13 @@ const MenuProps = {
 };
 
 interface MultipleSelectPlaceholderProps {
-    placeholder: string;
+    placeholder: any;
     data?:string;
     fullwidth?:boolean;
     renderData?:any;
     onChange?:any;
     named?:any;
+    className?:any;
   }
   
 
@@ -40,7 +41,7 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
   };
 }
 
-export const MultipleSelectPlaceholder: React.FC<MultipleSelectPlaceholderProps> = ({placeholder,data,fullwidth,renderData,onChange,named}) => {
+export const MultipleSelectPlaceholder: React.FC<MultipleSelectPlaceholderProps> = ({placeholder,data,fullwidth,renderData,onChange,named,className}) => {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
 
@@ -67,7 +68,7 @@ export const MultipleSelectPlaceholder: React.FC<MultipleSelectPlaceholderProps>
           input={<OutlinedInput />}
           renderValue={(selected) => {
             if (selected.length === 0) {
-              return <Typography className='text-secondary'>Select {placeholder}....</Typography>;
+              return <Typography className='text-secondary'>{placeholder}</Typography>;
             }
 
             return selected.join(', ');
@@ -75,7 +76,7 @@ export const MultipleSelectPlaceholder: React.FC<MultipleSelectPlaceholderProps>
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }}
       
-          className={data? 'rounded-select select_margins':"select_margins"}
+          className={data? 'rounded-select select_margins':`select_margins ${className}`}
         >
        
           {renderData.map((name:any) => (
@@ -83,8 +84,7 @@ export const MultipleSelectPlaceholder: React.FC<MultipleSelectPlaceholderProps>
               key={name}
               value={name}
               style={getStyles(name, personName, theme)}
-           
-            >
+         >
               {name}
             </MenuItem>
           ))}

@@ -26,7 +26,7 @@ const ChangePassword = (props: Props) => {
      event.preventDefault();
      if(newPassword == confirmNewPassword){
      axios.patch(USERSERVICE+'Change_password',{email:location.state,password:confirmNewPassword}).
-     then((res)=>{console.log(res.data);navigate("/")}).
+     then((res)=>{navigate("/")}).
      catch((error)=>console.log(error.message))
      }else{
      console.log("Password Does not Match");

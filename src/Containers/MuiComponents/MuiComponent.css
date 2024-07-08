@@ -1,9 +1,11 @@
 
   
   .rounded-select .MuiOutlinedInput-input {
-    padding: 8px; /* Adjust the input padding as needed */
-   
+    padding: 8px !important; /* Adjust the input padding as needed */
+  }
  
+  .select_margins .MuiOutlinedInput-input {
+    padding: 8px !important; /* Adjust the input padding as needed */
   }
 .select_margins{
     
@@ -15,4 +17,14 @@
 }
 .custom-textfield .MuiOutlinedInput-root {
     border-radius: 30px;
+}
+.css-16c50h-MuiInputBase-root-MuiTablePagination-select {
+  
+  margin-bottom: 10px;
+}
+.MuiTablePagination-displayedRows{
+  margin-bottom: 13px;
+}
+.MuiTablePagination-actions{
+margin-bottom: 18px;
 }

@@ -20,7 +20,7 @@ export const Footer = (props: Props) => {
         className="d-flex flex-column align-items-center"
       >
         <img
-          src="download.svg"
+          src="/download.svg"
           alt="logo"
           
           className="footer_logo"
@@ -74,8 +74,8 @@ export const Footer = (props: Props) => {
        <Typography className="playstore_content">Apply on the go</Typography>
        <Typography className="playstore_content">Get real-time job updates on our App</Typography>
        <div className="align-items-center gap-1 mt-10" >
-       <img src="android-app_v1.png" className="download_logos" alt="logo"/>
-       <img src="ios-app_v1.png" className="download_logos" alt="logo"/>
+       <img src="/android-app_v1.png" className="download_logos" alt="logo"/>
+       <img src="/ios-app_v1.png" className="download_logos" alt="logo"/>
        </div>
        </div>
       </Grid>
