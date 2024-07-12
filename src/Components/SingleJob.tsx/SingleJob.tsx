@@ -25,7 +25,7 @@ type Props = {};
 const SingleJob = (props: Props) => {
   const { id } = useParams();
   const [particularjobDetails, SetParticularjobDetails] = useState<any>(null);
-  const { user } = useContext<any>(UserContext);
+  const { user,userProfileData } = useContext<any>(UserContext);
   useEffect(() => {
     axios
       .get(JOBSSERVICE + `Job_details/${id}`)
@@ -145,7 +145,7 @@ axios
                   <Button variant="outlined" className="rounded-pill">
                     Save
                   </Button>
-                  <Button variant="contained" className="rounded-pill" onClick={ApplyForJob}>
+                  <Button variant="contained" className="rounded-pill" onClick={ApplyForJob} disabled={userProfileData && userProfileData.applied_jobs.includes(id) ? true :false}>
                     Apply
                   </Button>
                 </div>

@@ -1,44 +1,97 @@
-// ThemeContext.js
-import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react';
-import { USERSERVICE } from '../Env/Env';
+import axios from "axios";
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
+import { COMPANYSERVICE, JOBSSERVICE, USERSERVICE } from "../Env/Env";
+
+// Define context type
+interface UserContextType {
+  user: any;
+  setUser: Dispatch<SetStateAction<any>>;
+  userProfileData: any;
+  educational_details: any;
+  allJobsofCompany:any;
+}
 
 // Create a context object
-export const UserContext = createContext({user:null,userProfileData:null,educational_details:null});
-interface props{
-    children:any;
+export const UserContext = createContext<UserContextType>({
+  user: null,
+  setUser: () => {},
+  userProfileData: null,
+  educational_details: null,
+  allJobsofCompany:null,
+});
+
+interface Props {
+  children: any;
 }
+
 // Create a provider component
-export const Context: React.FC<props> = ({ children }) => {
-const [userProfileData,setUserProfileData] = useState<any>(null);
-const [educational_details,setEducational_details] = useState<any>(null);
-    const userDataString = localStorage.getItem("Job_application_user_data");
-    const userData  = userDataString ? JSON.parse(userDataString) : null;
-    console.log(userData,'context',userProfileData)
-    useEffect(() => {
-      const fetchData = async () => {
+export const Context: React.FC<Props> = ({ children }) => {
+  const [allJobsofCompany,setAllJobsofCompany] = useState<any>(null);
+  const [user, setUser] = useState<any>(() => {
+    const savedUser = localStorage.getItem("Job_application_user_data");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+  const [userProfileData, setUserProfileData] = useState<any>(null);
+  const [educational_details, setEducational_details] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user) {
         try {
-          const userDetailsResponse = await axios.get(
-            `${USERSERVICE}get_user_details/${userData.id}`
-          );
-          setUserProfileData(userDetailsResponse.data);
-          
-          const userEducationResponse = await axios.get(
-            `${USERSERVICE}get_user_educational/${userData.id}`
-          );
-          setEducational_details(userEducationResponse.data);
-        
+          if (user.registerAs === "Employee") {
+            const userDetailsResponse = await axios.get(
+              `${USERSERVICE}get_user_details/${user.id}`
+            );
+            setUserProfileData(userDetailsResponse.data);
+
+            const userEducationResponse = await axios.get(
+              `${USERSERVICE}get_user_educational/${user.id}`
+            );
+            setEducational_details(userEducationResponse.data);
+          } else {
+            const companyDetailsResponse = await axios.get(
+              `${COMPANYSERVICE}get_particular_company_details/${user.id}`
+            );
+            setUserProfileData(companyDetailsResponse.data);
+            await axios.get(JOBSSERVICE+`jobs_posted_by_company/${user && user.id}`).then((res)=>setAllJobsofCompany(res.data)).catch((err)=>console.log(err.message));
+          }
         } catch (error: any) {
           console.error("Error fetching data:", error.message);
         }
-      };
-  
-      fetchData();
-    }, []);
+      }
+    };
+
+    fetchData();
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("Job_application_user_data", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("Job_application_user_data");
+    }
+  }, [user]);
+
+  console.log(
+    userProfileData,
+    "userProfileData",
+    educational_details,
+    "educational_details",
+    user?.id,
+    "user"
+  );
 
   return (
-    <UserContext.Provider value={{user:userData,userProfileData,educational_details}}>
+    <UserContext.Provider
+      value={{ user, setUser, userProfileData, educational_details,allJobsofCompany}}
+    >
       {children}
     </UserContext.Provider>
-  )
+  );
 };

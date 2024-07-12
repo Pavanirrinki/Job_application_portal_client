@@ -9,45 +9,41 @@ import {
 } from "@mui/material";
 import "./Login.css";
 import DoneIcon from "@mui/icons-material/Done";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { COMPANYSERVICE, USERSERVICE } from "../../Containers/Env/Env";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { UserContext } from "../../Containers/useContext/Context";
 type Props = {};
 
 const Login = (props: Props) => {
   const navigate = useNavigate();
+  const { user, setUser } = useContext<any>(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginAs,setLoginAs] = useState(false);
-  const HandleSubmit = (e: any) => {
-
+  const HandleSubmit = (e:any) => {
     e.preventDefault();
     axios
-      .post(
-       loginAs ? COMPANYSERVICE + "login" : USERSERVICE + "login",
-        { email, password },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post(loginAs ? COMPANYSERVICE + "login" : USERSERVICE + "login", { email, password }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
-        console.log(res.data);
-        if (res.status == 200) {
-          localStorage.setItem(
-            `Job_application_user_data`,
-            JSON.stringify(res.data)
-          );
-       
-          return navigate("/");
+        if (res.status === 200) {
+          localStorage.setItem("Job_application_user_data", JSON.stringify(res.data));
+          setUser(res.data); // Update user context
+          setTimeout(() => {
+            navigate("/home");
+          }, 2000);
         }
       })
       .catch((error) =>
         console.log(error.response?.data ? error.response?.data : error.message)
       );
   };
+  
 
  
   const SendOtp = (e: any) => {

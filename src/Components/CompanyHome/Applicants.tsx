@@ -1,27 +1,38 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Applicants.css";
 import { Box, Button, ButtonGroup, Chip, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
-import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-type Props = {};
+import CustomizedDialogs from "../../Containers/MuiComponents/Dialog";
+
+type Props = {
+  row:any;
+};
+
 
 const Applicants = (props: Props) => {
-    const skills =["java","spring","Docker"]
+const [viewPdf,setViewPdf] = useState<boolean>(false);
+   console.log(props.row,"rowed");
+   const handleDownloadClick = (e:any) => {
+    e.preventDefault();
+    setViewPdf(true)
+   }
   return (
     <Paper className="mt-5 rounded-1">
       <Grid container>
         <Grid xs={7}>
           <Typography variant="h6" className="m-2">
-            Pavan Kumar Irrinki
+            {props.row && props.row.userdata.name}
           </Typography>
           <Container className="d-flex justify-content-between mb-3">
             <Box className="d-flex align-items-center gap-1 text-secondary">
               <BusinessCenterOutlinedIcon />
               <Typography variant="subtitle2" className="mt-1 fw-600">
-                2y 2m
+                {props.row && props.row.userdata.experienced} years
               </Typography>
             </Box>
 
@@ -35,7 +46,7 @@ const Applicants = (props: Props) => {
             <Box className="d-flex align-items-center gap-1 text-secondary">
               <LocationOnOutlinedIcon />
               <Typography variant="body2" className="mt-1 fw-600">
-                Hyderabad
+                {props.row && props.row.userdata.hometown}
               </Typography>
             </Box>
           </Container>
@@ -44,7 +55,12 @@ const Applicants = (props: Props) => {
             <Container className="mb-3">
               <Grid container spacing={2}>
                 <Grid item xs={4}>
-                  <Typography variant="body2" className="fw-bold  text-black-50">Current/Prev</Typography>
+                  <Typography
+                    variant="body2"
+                    className="fw-bold  text-black-50"
+                  >
+                    Current/Prev
+                  </Typography>
                 </Grid>
                 <Grid item xs={8}>
                   <Typography variant="caption" display="block">
@@ -60,12 +76,18 @@ const Applicants = (props: Props) => {
             <Container className="mb-3">
               <Grid container spacing={2}>
                 <Grid item xs={4}>
-                  <Typography variant="body2" className="fw-bold  text-black-50">Education</Typography>
+                  <Typography
+                    variant="body2"
+                    className="fw-bold  text-black-50"
+                  >
+                    Education
+                  </Typography>
                 </Grid>
                 <Grid item xs={8}>
                   <Typography variant="caption" display="block">
-                    B.Tech/B.E Jawaharlal Nehhru Technological University
-                    kakinada 2016
+                    {props.row && props.row.userGraduation.university},
+                    {props.row && props.row.userGraduation.institute} -{" "}
+                    {props.row && props.row.userGraduation.startDate}
                   </Typography>
                 </Grid>
               </Grid>
@@ -74,35 +96,55 @@ const Applicants = (props: Props) => {
             <Container className="mb-3">
               <Grid container spacing={2}>
                 <Grid item xs={4}>
-                  <Typography variant="body2" className="fw-bold  text-black-50">Pref. Location</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <Typography variant="caption" display="block">Anywhere in India</Typography>
-                </Grid>
-              </Grid>
-            </Container>
-
-            <Container className="mb-3">
-              <Grid container spacing={2}>
-                <Grid item xs={4}>
-                  <Typography variant="body2" className="fw-bold  text-black-50">Skills</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  {skills.map((data: String) => {
-                    return <Chip label={data} style={{ marginLeft: "3px" }} />;
-                  })}
-                </Grid>
-              </Grid>
-            </Container>
-
-            <Container className="mb-3">
-              <Grid container spacing={2}>
-                <Grid item xs={4}>
-                  <Typography variant="body2" className="fw-bold  text-black-50">May Also known</Typography>
+                  <Typography
+                    variant="body2"
+                    className="fw-bold  text-black-50"
+                  >
+                    Pref. Location
+                  </Typography>
                 </Grid>
                 <Grid item xs={8}>
                   <Typography variant="caption" display="block">
-                    Rest Api,Mobile development,React,Junit,Mocha,unit testing
+                    Anywhere in India
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Container>
+
+            <Container className="mb-3">
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <Typography
+                    variant="body2"
+                    className="fw-bold  text-black-50"
+                  >
+                    Skills
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  {props.row &&
+                    props.row.userResume.skills.map((data: String) => {
+                      return (
+                        <Chip label={data} style={{ marginLeft: "3px" }} />
+                      );
+                    })}
+                </Grid>
+              </Grid>
+            </Container>
+
+            <Container className="mb-3">
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <Typography
+                    variant="body2"
+                    className="fw-bold  text-black-50"
+                  >
+                    Mobile No.
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography variant="caption" display="block">
+                    {props.row && props.row.userdata.mobilenumber}
                   </Typography>
                 </Grid>
               </Grid>
@@ -115,24 +157,55 @@ const Applicants = (props: Props) => {
           className="d-flex flex-column justify-content-start align-items-center"
         >
           <Box className="profile-image-container">
-            <img src="/userdp.svg" className="profile" alt="profile_pic" />
+            <img
+              src={`data:image/png;base64,${
+                props.row && props.row.userdata.profile_pic
+              }`}
+              className="profile-image-user"
+              alt="profile_pic"
+            />
           </Box>
-          <Typography variant="body2" className="text-center m-1 text-primary-emphasis">
+          <Typography
+            variant="body2"
+            className="text-center m-1 text-primary-emphasis"
+          >
             Frontened Developer with 2 years experience building mobile
             applications
           </Typography>
           <Box className="gap-3 d-flex mt-2">
-            <Button variant="outlined" startIcon={<CallOutlinedIcon />} className="rounded-pill">
-              call
+            <Button
+              variant="outlined"
+              className="rounded-pill"
+              onClick={handleDownloadClick}
+            >
+              show Resume
             </Button>
-            <Button variant="outlined" startIcon={<MailOutlineOutlinedIcon />} className="rounded-pill">
-            Send a Email
-            </Button>   
+            <a href={`mailto:${props.row && props.row.userdata.email}`}>
+              <Button
+                variant="outlined"
+                startIcon={<MailOutlineOutlinedIcon />}
+                className="rounded-pill"
+              >
+                Send a Email
+              </Button>
+            </a>
+            {viewPdf && (
+              <CustomizedDialogs setViewPdf={setViewPdf}>
+              <iframe
+                src={`data:application/pdf;base64,${
+                  props.row && props.row.userResume.pdf
+                }`}
+                title="PDF Preview"
+                width="100%"
+                height="750px"
+                style={{ border: "none" }}
+              ></iframe>
+              </CustomizedDialogs>
+            )}
           </Box>
         </Grid>
       </Grid>
     </Paper>
-
   );
 };
 

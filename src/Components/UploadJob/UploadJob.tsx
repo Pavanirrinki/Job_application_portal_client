@@ -18,9 +18,11 @@ import {
 } from "../../Containers/Env/Env";
 import axios from "axios";
 import { UserContext } from "../../Containers/useContext/Context";
+import { Navigate, useNavigate } from "react-router-dom";
 type Props = {};
 
 export const UploadJob = (props: Props) => {
+  const navigate = useNavigate();
   const { user } = useContext<any>(UserContext);
   const names = ["In Office", "Work from home"];
   const [jobDetails, setJobDetails] = useState({
@@ -84,6 +86,7 @@ export const UploadJob = (props: Props) => {
           openings: "",
           qualifications:""
         });
+        navigate("/home");
       })
       .catch((error) => console.log(error.message));
   };

@@ -28,3 +28,7 @@
 .MuiTablePagination-actions{
 margin-bottom: 18px;
 }
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper{
+   max-width: 100% !important;
+   width: 60% !important;
+}
