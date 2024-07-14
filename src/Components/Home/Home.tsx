@@ -46,7 +46,7 @@ const [jobDetails,setJobDetails] = useState<any>(null);
 const [userdetails,setUserdetails] = useState<any>(null);
 const navigate = useNavigate();
 useEffect(()=>{
-   axios.get(JOBSSERVICE+"fetch_all_jobs").then((res)=>setJobDetails(res.data)).catch((error)=>console.log(error.message))
+   axios.get(JOBSSERVICE+`fetch_all_jobs`).then((res)=>setJobDetails(res.data)).catch((error)=>console.log(error.message))
    setUserdetails(user);
    
 },[])

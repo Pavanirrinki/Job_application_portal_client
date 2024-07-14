@@ -40,7 +40,8 @@ console.log(props.data,"data1233455")
            {props.title}
           </Typography>
           <Typography
-            style={{ fontSize: "13px", color: "#275df5", fontWeight: "700" }}
+            style={{ fontSize: "13px", color: "#275df5", fontWeight: "700",cursor:"pointer" }}
+            onClick={()=>navigate("/View_all_jobs")}
           >
             View All
           </Typography>

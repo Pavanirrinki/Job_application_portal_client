@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
-
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { Register } from "./Register/Register";
 import UpdateProfile from "./UpdateProfile/UpdateProfile";
 import ForgotPassword from "./ForgotPassword/ForgotPassword";
@@ -12,10 +11,11 @@ import Login from "./Login/Login";
 import { UserContext } from "../Containers/useContext/Context";
 import CompanyHome from "./CompanyHome/CompanyHome";
 import PostReviews from "../Containers/PostReviews/PostReviews";
+import ViewAllJobs from "../Containers/ViewAllJobs/ViewAllJobs";
 
 export const AppRoutes = () => {
   const { user } = useContext<any>(UserContext);
-
+  const location =  useLocation();
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
@@ -28,6 +28,9 @@ export const AppRoutes = () => {
       <Route path="/ParticularJob/:id" element={<SingleJob />} />
       <Route path="/PostJob" element={<UploadJob />} />
       <Route path="/post_Reviews" element ={<PostReviews />} />
+      <Route  path="/View_all_jobs" element={<ViewAllJobs />}
+/>
+
     </Routes>
   );
 };
