@@ -98,8 +98,8 @@ const Login = (props: Props) => {
               Know application status on applied jobs.
             </Typography>
           </div>
-          <div className="flex-center md-10">
-            <Button variant="outlined">Register for free</Button>
+          <div className="flex-center md-10 cursor-pointer">
+            <Button variant="outlined" onClick={()=>navigate("/register")}>Register for free</Button>
           </div>
           <div className="flex-end">
             <img src="/LoginInfo.png" alt="logo" className="Logininfo-png" />

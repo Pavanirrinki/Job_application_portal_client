@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../Register/Register.css";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
@@ -17,6 +17,8 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import axios from "axios";
 import { JOBSSERVICE } from "../../Containers/Env/Env";
 import { useNavigate } from "react-router-dom";
+import AnchorTemporaryDrawer from "../../Containers/MuiComponents/RightSlideBar";
+import NotificationsContainer from "../../Containers/NotificationsContainer/NotificationsContainer";
 
 type Props = {};
 
@@ -25,6 +27,24 @@ const Header = (props: Props) => {
   const [searchedJobs, setSearchedJobs] = useState<string>("");
   const [timeoutId, setTimeoutId] = useState<number | undefined>(undefined);
   const [searchedContent, setSearchedContent] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<boolean>(false);
+  const wrapperRef = useRef<any>(null);
+  useEffect(() => {
+   
+    function handleClickOutside(event: any) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+       setNotifications(false);
+      
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
+
 
   const searchedJob = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputVal = e.target.value;
@@ -34,10 +54,14 @@ const Header = (props: Props) => {
     }
 
     const newTimeoutId = window.setTimeout(() => {
+      console.log("searched",searchedContent)
       axios
         .get(`${JOBSSERVICE}Search_jobs_by_name/${inputVal}`)
         .then((res) => {
-          setSearchedContent(res.data);
+        
+              setSearchedContent(res.data);
+         
+          
         })
         .catch((err) => {
           console.log(err.message);
@@ -47,11 +71,12 @@ const Header = (props: Props) => {
     setTimeoutId(newTimeoutId);
   };
 
-const HandleViewCategoryJobs =(e:any,data:String) =>{
-  e.preventDefault();
-  navigate('/View_all_jobs', { state: { data, page: 0 } });
-  setSearchedJobs('');
-}
+  const HandleViewCategoryJobs = (e: any, data: String) => {
+    e.preventDefault();
+    navigate("/View_all_jobs", { state: { data, page: 0 } });
+    setSearchedJobs("");
+  };
+  const uniqueJobTitles = Array.from(new Set(searchedContent.map(data => data.jobTitle)));
   return (
     <>
       <Grid container className="flex-spacearound Header_Container" xs={12}>
@@ -81,8 +106,13 @@ const HandleViewCategoryJobs =(e:any,data:String) =>{
             {searchedContent.length >= 1 && searchedJobs.length >= 1 && (
               <Paper className="Search_Items" elevation={7}>
                 {searchedContent &&
-                  searchedContent.map((data: any) => (
-                    <MenuItem className="menu_Items" onClick={(e)=>HandleViewCategoryJobs(e,data.jobTitle)}>{data?.jobTitle}</MenuItem>
+                   Array.from(new Set(searchedContent.map(data => data.jobTitle))).map((data: any) => (
+                    <MenuItem
+                      className="menu_Items"
+                      onClick={(e) => HandleViewCategoryJobs(e, data)}
+                    >
+                      {data}
+                    </MenuItem>
                   ))}
               </Paper>
             )}
@@ -90,16 +120,24 @@ const HandleViewCategoryJobs =(e:any,data:String) =>{
 
           <div className="d-flex justify-content-center align-items-center ml-50">
             <Button className="Jobs_360">Jobs 360</Button>
-            <Badge badgeContent={4} color="error">
-              <NotificationsNoneIcon className="ml-30 fs-30" />
+            <Badge badgeContent={4} color="error" className="position-relative"   ref={wrapperRef}>
+              <NotificationsNoneIcon
+                className="ml-30 fs-30"
+                onClick={() => {setNotifications((prev) => !prev);console.log("notification clicked",notifications)}}
+              />
+              {notifications && (
+                <NotificationsContainer setNotifications={setNotifications} notification={notifications}/>
+              )}
             </Badge>
-            <Badge badgeContent={4} color="error">
-              <div className="ml-30 border border-grey rounded-pill pl-10 pr-10">
-                <ListIcon className="fs-30" />
+            <AnchorTemporaryDrawer>
+              <Badge badgeContent={4} color="error">
+                <div className="ml-30 border border-grey rounded-pill pl-10 pr-10">
+                  <ListIcon className="fs-30 text-dark" />
 
-                <PersonOutlineIcon className="fs-30" />
-              </div>
-            </Badge>
+                  <PersonOutlineIcon className="fs-30 text-dark" />
+                </div>
+              </Badge>
+            </AnchorTemporaryDrawer>
           </div>
         </Grid>
       </Grid>

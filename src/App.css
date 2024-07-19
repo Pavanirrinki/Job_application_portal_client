@@ -316,6 +316,9 @@ align-items:center;
 .opacity09{
   opacity: 0.9 !important;
 }
+.opacity10{
+  opacity: 1.0 !important;
+}
 /* --------------------------------------------FONT WEIGHTS------------------------------------------------------- */
 .lh-0{
   line-height: 0px !important;
@@ -362,4 +365,9 @@ align-items:center;
 }
 .width-100{
   width: 100% !important
+}
+
+/* ---------------------------------------------------MAX-HEIGHT--------------------------------------------------- */
+.maxHeight-100{
+ height: 80vh !important;
 }

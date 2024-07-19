@@ -80,6 +80,7 @@ const ViewAllJobs = () => {
     setLoading(true);
   }, [location.state]); 
 
+
   return (
     <Container className="d-flex justify-content-center flex-column width-50">
       {card.map((job, index) => (

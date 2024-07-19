@@ -18,7 +18,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function CustomizedDialogs({children,setViewPdf}:{children:any,setViewPdf:any}) {
+export default function CustomizedDialogs({children,setViewPdf}:{children:any,setViewPdf?:any}) {
   const [open, setOpen] = React.useState(true);
 
 

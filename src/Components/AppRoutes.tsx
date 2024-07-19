@@ -19,7 +19,7 @@ export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
-      <Route path="/home" element={user && user.registerAs === "Employee" ? <Home /> : <CompanyHome />} />
+      <Route path="/home" element={user ? (user.registerAs === "Employee" ? <Home /> : <CompanyHome />):<Navigate to="/register" />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile_info" element={<UpdateProfile />} />
       <Route path="/login" element={<Login />} />

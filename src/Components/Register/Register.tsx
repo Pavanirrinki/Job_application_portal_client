@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Container,
   FormControl,
   FormControlLabel,
   Grid,
@@ -115,14 +116,26 @@ export const Register = (props: Props) => {
 
   return (
     <>
+    <Box className="bg-white w-100 mb-20">
+      <Container className="d-flex justify-content-between align-items-center">
+      <img src="/portal_icon.webp" alt="logo" className="logo-styles" />
+      <Box className="d-flex gap-1">
+      <Typography className="header">Already Register?</Typography>
+      <Typography className="text-primary opacity10 fw-700 cursor-pointer" onClick={()=>navigate("/login")}> LOGIN</Typography>
+      <Typography> here</Typography>
+     </Box>
+      </Container>
+    </Box>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={10} className="mt-20 mb-20">
+        <Grid container spacing={10} className="mb-20">
+        
           <Grid item xs={2}></Grid>
           <Grid
             item
             xs={3}
             className="d-flex justify-content-center flex-column align-items-center"
           >
+              
             <Paper elevation={4} className="text-center">
               <div>
                 <img src="/info.png" alt="info" className="img_dimensions" />
@@ -315,7 +328,9 @@ export const Register = (props: Props) => {
                     Register
                   </Button>
                 </div>
+
               </form>
+            
             </Paper>
           </Grid>
         </Grid>
