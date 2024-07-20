@@ -5,12 +5,14 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import useMovement from "../../CustomHooks/HandleForwardandBackward";
 import { Star } from '@mui/icons-material';
 import "./TopCompanies.css"
+import { useNavigate } from 'react-router-dom';
 type Props = {
   data?:any;
   title?:string;
 }
 
 const TopCompanies = (props: Props) => {
+  const navigate = useNavigate();
   const {currentIndex,currentItem,moveForward,moveBackward} = useMovement(0, (props&&props.data != undefined ? props.data?.length:0));
 
   return (
@@ -24,7 +26,7 @@ const TopCompanies = (props: Props) => {
      </Typography>
      <Typography
       
-       className='fs-14 text-primary fw-700'
+       className='fs-14 text-primary fw-700 cursor-pointer' onClick={()=>navigate("/view_all_companies")}
      >
        View All
      </Typography>

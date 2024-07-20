@@ -13,7 +13,7 @@ const NotificationsContainer = (props: Props) => {
  
   return (
     <Paper
-      className="position-absolute rounded"
+      className="position-absolute rounded scrollbar"
       style={{
         top: "100%",
         marginTop: "10px",
@@ -27,7 +27,7 @@ const NotificationsContainer = (props: Props) => {
       elevation={10}
     
     >
-      <Container className="width-100">
+      <Container className="width-100 ">
         <Box
           style={{
             zIndex: 200,
@@ -57,7 +57,7 @@ const NotificationsContainer = (props: Props) => {
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(
           (data) => {
             return (
-              <Container className="width-100 md-10">
+              <Container className="width-100 md-10 ">
                 <Box className="d-flex justify-content-between align-items-center gap-3">
                   <Box className="image-container" position="relative">
                     <img

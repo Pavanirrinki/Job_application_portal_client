@@ -77,6 +77,8 @@
     border-radius: 10px !important;
 margin-bottom: 10px !important;
 }
+
+
 .Search_Items::-webkit-scrollbar {
     width: 5px;
   
@@ -90,7 +92,8 @@ margin-bottom: 10px !important;
   }
    
   /* Handle */
-  ::-webkit-scrollbar-thumb {
+ ::-webkit-scrollbar-thumb {
     background:#d9d9d9; 
     border-radius: 10px;
-  }
+   
+  } 

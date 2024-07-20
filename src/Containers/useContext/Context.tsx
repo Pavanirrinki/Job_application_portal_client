@@ -15,6 +15,8 @@ interface UserContextType {
   userProfileData: any;
   educational_details: any;
   allJobsofCompany:any;
+  waitforLoad:boolean;
+ 
 }
 
 // Create a context object
@@ -24,6 +26,9 @@ export const UserContext = createContext<UserContextType>({
   userProfileData: null,
   educational_details: null,
   allJobsofCompany:null,
+  waitforLoad:false,
+ 
+
 });
 
 interface Props {
@@ -39,7 +44,7 @@ export const Context: React.FC<Props> = ({ children }) => {
   });
   const [userProfileData, setUserProfileData] = useState<any>(null);
   const [educational_details, setEducational_details] = useState<any>(null);
-
+  const [waitforLoad,setWaitforLoad] = useState<boolean>(false);
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
@@ -73,6 +78,7 @@ export const Context: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     if (user) {
       localStorage.setItem("Job_application_user_data", JSON.stringify(user));
+      setWaitforLoad(true);
     } else {
       localStorage.removeItem("Job_application_user_data");
     }
@@ -89,7 +95,7 @@ export const Context: React.FC<Props> = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, userProfileData, educational_details,allJobsofCompany}}
+      value={{ user, setUser, userProfileData, educational_details,allJobsofCompany,waitforLoad}}
     >
       {children}
     </UserContext.Provider>

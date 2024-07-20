@@ -1,0 +1,9 @@
+.company_img{
+    flex-basis: 60px;
+    width: 60px;
+    overflow: hidden;
+    height: 60px;
+    position: relative;
+    border: 1px solid var(--N400);
+    border-radius: 10px;
+}

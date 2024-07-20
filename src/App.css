@@ -254,14 +254,7 @@ align-items:center;
 .fs-20{
   font-size: 20px !important;
 }
-.hideScrollbar {
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none; /* For Internet Explorer and Edge */
-}
 
-.hideScrollbar::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari, and Opera */
-}
 .cursor-pointer{
   cursor: pointer;
 }

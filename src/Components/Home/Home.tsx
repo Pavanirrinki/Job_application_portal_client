@@ -34,9 +34,10 @@ type Props = {};
 const MiddleContainer: any = {
   container: {
     marginTop: "10px",
-    height: "110vh",
+     maxHeight:"610px",
     overflow: "auto",
     width: "600px",
+   
   },
 };
 
@@ -173,7 +174,7 @@ console.log(userProfileData,"home")
             <TopCompanies data={Companies_data} title="Top Companies" />
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2} >
             {[1, 2, 3].map((_, index) => {
               return (
                 <div className="innerdiv">

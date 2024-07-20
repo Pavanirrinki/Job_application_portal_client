@@ -12,10 +12,11 @@ import { UserContext } from "../Containers/useContext/Context";
 import CompanyHome from "./CompanyHome/CompanyHome";
 import PostReviews from "../Containers/PostReviews/PostReviews";
 import ViewAllJobs from "../Containers/ViewAllJobs/ViewAllJobs";
+import ViewAllCompanies from "../Containers/ViewAllCompanies/ViewAllCompanies";
 
 export const AppRoutes = () => {
   const { user } = useContext<any>(UserContext);
-  const location =  useLocation();
+ 
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
@@ -28,8 +29,9 @@ export const AppRoutes = () => {
       <Route path="/ParticularJob/:id" element={<SingleJob />} />
       <Route path="/PostJob" element={<UploadJob />} />
       <Route path="/post_Reviews" element ={<PostReviews />} />
-      <Route  path="/View_all_jobs" element={<ViewAllJobs />}
-/>
+      <Route  path="/View_all_jobs" element={<ViewAllJobs />}/>
+      <Route path ="/view_all_companies" element={<ViewAllCompanies />} />
+
 
     </Routes>
   );

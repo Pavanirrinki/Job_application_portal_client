@@ -1,14 +1,30 @@
 .home_container{
-    background-color: #f2f2f2;
-}
-
-.content_container{
-     width:100%;
     display: flex;
+    flex-direction: column;
+
+    background-color: #f2f2f2;
+    
+  }
+  
+  .content_container {
+    display: flex;
+    height: 100%;
+    width:100%;
+
     justify-content: center;
     gap: 30px;
-    height:100vh ;
-}
+  }
+  
+ 
+  .profile_container,
+  .innerdiv {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+
 .profile_container{
   display: flex;
   justify-content: center;  
@@ -99,7 +115,7 @@ margin-bottom: 10px !important;
 
 	display: grid;
 
-	
+    margin-bottom: 8px;
 	grid-template-columns: repeat(4,17rem);
 }
 .eachdiv
@@ -235,9 +251,9 @@ margin-bottom: 10px !important;
     margin-top: 10px !important;
     height: 90% !important;
     overflow: auto !important;
-    overflow-x: hidden !important; /* Hide horizontal scrollbar */
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    overflow-x: hidden !important; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
   }
   .profile_name{
     
