@@ -26,6 +26,7 @@ interface MultipleSelectPlaceholderProps {
     onChange?:any;
     named?:any;
     className?:any;
+    value?:any;
   }
   
 
@@ -41,7 +42,7 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
   };
 }
 
-export const MultipleSelectPlaceholder: React.FC<MultipleSelectPlaceholderProps> = ({placeholder,data,fullwidth,renderData,onChange,named,className}) => {
+export const MultipleSelectPlaceholder: React.FC<MultipleSelectPlaceholderProps> = ({placeholder,data,fullwidth,renderData,onChange,named,className,value}) => {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
 
@@ -68,7 +69,7 @@ export const MultipleSelectPlaceholder: React.FC<MultipleSelectPlaceholderProps>
           input={<OutlinedInput />}
           renderValue={(selected) => {
             if (selected.length === 0) {
-              return <Typography className='text-secondary'>{placeholder}</Typography>;
+              return (value ? value : (<Typography className='text-secondary'>{placeholder}</Typography>));
             }
 
             return selected.join(', ');

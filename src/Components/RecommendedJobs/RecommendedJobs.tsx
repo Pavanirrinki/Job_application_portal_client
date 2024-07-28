@@ -49,7 +49,7 @@ export const RecommendedJobs = (props: Props) => {
           fontWeight: "bolder",
         }}
       >
-        5.0
+        5
       </Typography>
       <Typography
         variant="body2"

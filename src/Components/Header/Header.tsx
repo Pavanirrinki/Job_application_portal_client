@@ -28,6 +28,7 @@ const Header = (props: Props) => {
   const [timeoutId, setTimeoutId] = useState<number | undefined>(undefined);
   const [searchedContent, setSearchedContent] = useState<any[]>([]);
   const [notifications, setNotifications] = useState<boolean>(false);
+  const [displaySearchContent,setDisplaySearchContent] = useState(false);
   const wrapperRef = useRef<any>(null);
   useEffect(() => {
    
@@ -60,7 +61,7 @@ const Header = (props: Props) => {
         .then((res) => {
         
               setSearchedContent(res.data);
-         
+              setDisplaySearchContent(true)
           
         })
         .catch((err) => {
@@ -71,17 +72,20 @@ const Header = (props: Props) => {
     setTimeoutId(newTimeoutId);
   };
 
-  const HandleViewCategoryJobs = (e: any, data: String) => {
+  const HandleViewCategoryJobs = (e: any, data:string) => {
+    
     e.preventDefault();
+    
     navigate("/View_all_jobs", { state: { data, page: 0 } });
-    setSearchedJobs("");
+    setSearchedJobs(data);
+   setDisplaySearchContent(false)
   };
-  const uniqueJobTitles = Array.from(new Set(searchedContent.map(data => data.jobTitle)));
+console.log(searchedJobs,"searchedjobs")
   return (
     <>
       <Grid container className="flex-spacearound Header_Container" xs={12}>
         <Grid item className="align-items-center" gap={8}>
-          <img src="/portal_icon.webp" alt="logo" className="logo-styles" />
+          <img src="/portal_icon.webp" alt="logo" className="logo-styles" onClick={()=>navigate("/")}/>
           <Badge badgeContent={4} color="error">
             <Typography className="pd-6">Jobs</Typography>
           </Badge>
@@ -96,6 +100,7 @@ const Header = (props: Props) => {
               id="fullWidth"
               className="searchInput"
               onChange={searchedJob}
+              value={searchedJobs}
               type="text"
               autoComplete="off"
             />
@@ -103,8 +108,8 @@ const Header = (props: Props) => {
             <button className="searchButton">
               <SearchIcon />
             </button>
-            {searchedContent.length >= 1 && searchedJobs.length >= 1 && (
-              <Paper className="Search_Items" elevation={7}>
+            {displaySearchContent && searchedJobs.length >= 1 && (
+              <Paper className="Search_Items d-flex flex-column align-items-center justify-content-center" elevation={7}>
                 {searchedContent &&
                    Array.from(new Set(searchedContent.map(data => data.jobTitle))).map((data: any) => (
                     <MenuItem

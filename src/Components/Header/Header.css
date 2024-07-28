@@ -61,12 +61,12 @@
 }
 .Search_Items{
   z-index:10000;
-
+  top: 41px;
   position:absolute;
-  min-width:150px;
-  padding:30px;
+  min-width:196px;
+  padding:8px;
   text-align: center;
-  right: -10px;
+  right: 1px;
   border-radius: 10px !important;
   
   overflow-y: auto;
@@ -75,7 +75,7 @@
 .menu_Items{
     padding:5px 20px  !important;
     border-radius: 10px !important;
-margin-bottom: 10px !important;
+
 }
 
 

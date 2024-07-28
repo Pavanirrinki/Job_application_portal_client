@@ -29,9 +29,13 @@ import {
 } from "../Env/Env";
 import { MultipleSelectPlaceholder } from "../MuiComponents/Select";
 import { UserContext } from "../useContext/Context";
+import { Bounce, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export default function ScrollDialog({ button }: { button: any }) {
-  const { user } = React.useContext<any>(UserContext);
+ 
+  const { user,userProfileData,setWaitforLoad } = React.useContext<any>(UserContext);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
 
@@ -59,6 +63,7 @@ export default function ScrollDialog({ button }: { button: any }) {
       }
     }
   }, [open]);
+
   const UploadResume = async (event: any) => {
     event.preventDefault();
     console.log("data clicked");
@@ -66,11 +71,12 @@ export default function ScrollDialog({ button }: { button: any }) {
 
     formData.append("Id", user.id);
     formData.append("skills", skills);
-    formData.append("pdf", pdf);
-    formData.append("resumename", resumeName.toString());
+    formData.append("pdf", pdf ? pdf : userProfileData.pdf);
+    formData.append("resumename", resumeName ? resumeName.toString() : userProfileData.resumename);
     formData.append("uploaddate", new Date().toString());
     try {
-      const response = await axios.post(
+     
+      const response = await (userProfileData ? axios.put : axios.post)(
         USERSERVICE + "upload_user_data",
         formData,
         {
@@ -80,13 +86,48 @@ export default function ScrollDialog({ button }: { button: any }) {
         }
       );
       console.log("Response:", response.data);
+      toast.success('Resume Successfully updated', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
       setPdf(null);
       setSkills("");
+      handleClose();
+      setWaitforLoad(true);
     } catch (error) {
       console.error("Error uploading data:", error);
     }
   };
 
+
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            
+          setPdf((reader.result as string)?.split(',')[1]);
+            console.log(reader.result, "reader");
+        };
+
+        reader.readAsDataURL(file);
+        setresumeName(file.name);
+
+        console.log(file);
+    }
+};
+
+
+console.log("user-dialog",userProfileData,pdf,resumeName)
   return (
     <React.Fragment>
       <div onClick={handleClickOpen("body")} className="text-dark">
@@ -99,7 +140,7 @@ export default function ScrollDialog({ button }: { button: any }) {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">Upload Details</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">{userProfileData ? "Edit Details":"Upload Details"}</DialogTitle>
         <DialogContent dividers={scroll === "paper"}>
           <DialogContentText
             id="scroll-dialog-description"
@@ -113,24 +154,17 @@ export default function ScrollDialog({ button }: { button: any }) {
                   type="file"
                   id="file-input"
                   className="file-input"
-                  onChange={(e: any) => {
-                    setPdf(e.target.files[0]);
-                    setresumeName(e.target.files[0].name);
-
-                    console.log(e.target.files[0]);
-                  }}
+                  onChange={handleFileChange}
                 />
                 <label htmlFor="file-input" className="file-input-label">
                   Upload Resume
                 </label>
               </div>
-              {pdf ? (
-                pdf.name
-              ) : (
+              
                 <Typography>
-                  Supported Formats: doc, docx, rtf, pdf, upto 2 MB
+                 {resumeName ? resumeName :(userProfileData &&userProfileData?.resumename ? userProfileData?.resumename:"Supported Formats: doc, docx, rtf, pdf, up to 2 MB")}
                 </Typography>
-              )}
+           
             </Container>
 
             <Typography className="mt-3 mb-3">Update Skills</Typography>
@@ -139,6 +173,7 @@ export default function ScrollDialog({ button }: { button: any }) {
               placeholder="Add Skills"
               variant="outlined"
               fullWidth
+              value={(!skills && userProfileData && userProfileData?.skills) ? userProfileData.skills:skills}
               helperText="Skills separated by comma."
               onChange={(event) => setSkills(event.target.value)}
             />
@@ -173,7 +208,7 @@ export default function ScrollDialog({ button }: { button: any }) {
 
 
 export const Education = ({ button }: { button: any }) => {
-  const { user } = React.useContext<any>(UserContext);
+  const { user,educational_details,setWaitforLoad } = React.useContext<any>(UserContext);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
   const [educationDetails, setEducationDetails] = useState({
@@ -207,11 +242,21 @@ export const Education = ({ button }: { button: any }) => {
   };
   const HandleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-
+const EducationalDetails = {
+  graduation_type:educationDetails?.graduation_type ?educationDetails?.graduation_type :educational_details?.graduation_type,
+  university: educationDetails?.university ? educationDetails?.university: educational_details?.university,
+  course: educationDetails?.course ? educationDetails?.course : educational_details?.course,
+  specilization: educationDetails?.specilization ? educationDetails?.specilization : educational_details?.specilization,
+  startDate: educationDetails?.startDate ? educationDetails?.startDate:educational_details?.startDate,
+  endDate: educationDetails?.endDate ? educationDetails?.endDate:educational_details?.endDate,
+  gradeSystem: educationDetails?.gradeSystem ? educationDetails?.gradeSystem : educational_details?.gradeSystem,
+  marks_Grade: educationDetails?.marks_Grade ? educationDetails?.marks_Grade: educational_details?.marks_Grade,
+  institute: educationDetails?.institute ? educationDetails?.institute : educational_details?.institute,
+}
     try {
-      const response = await axios.put(
+      const response = await (educational_details ? axios.put : axios.post)(
         USERSERVICE + `Save_user_educational_details/${user.id}`,
-        educationDetails,
+        EducationalDetails,
         {
           headers: {
             Accept: "application/json",
@@ -220,8 +265,21 @@ export const Education = ({ button }: { button: any }) => {
           },
         }
       );
-      // Handle success
+      
       console.log("Success:", response.data);
+      toast.success('Educational Details Successfully updated', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
+        setWaitforLoad(true)
+        handleClose()
       setOpen(false);
     } catch (error) {
       // Handle error
@@ -237,7 +295,7 @@ export const Education = ({ button }: { button: any }) => {
       }
     }
   }, [open]);
-
+console.log("educate",educational_details)
   return (
     <React.Fragment>
       <div onClick={handleClickOpen("body")}>{button}</div>
@@ -271,6 +329,7 @@ export const Education = ({ button }: { button: any }) => {
               placeholder="Select Graduation..."
               data="data"
               fullwidth
+              value={educationDetails?.graduation_type ?educationDetails?.graduation_type :educational_details?.graduation_type}
               renderData={names}
               onChange={handleChange}
               named="graduation_type"
@@ -282,7 +341,7 @@ export const Education = ({ button }: { button: any }) => {
               fullWidth
               className="custom-textfield"
               name="specilization"
-              value={educationDetails.specilization}
+              value={educationDetails?.specilization ? educationDetails?.specilization : educational_details?.specilization}
               onChange={handleChange}
             />
             <Typography className="pt-10 pb-10">University</Typography>
@@ -292,7 +351,7 @@ export const Education = ({ button }: { button: any }) => {
               fullWidth
               className="custom-textfield"
               name="university"
-              value={educationDetails.university}
+              value={educationDetails?.university ? educationDetails?.university: educational_details?.university}
               onChange={handleChange}
             />
             <FormControl className="d-flex">
@@ -308,7 +367,7 @@ export const Education = ({ button }: { button: any }) => {
                 name="gradeSystem"
                 className="d-flex justify-content-around"
                 onChange={handleChange}
-                value={educationDetails.gradeSystem}
+                value={educationDetails?.gradeSystem ? educationDetails?.gradeSystem : educational_details?.gradeSystem}
               >
                 <FormControlLabel
                   value="Marks"
@@ -329,7 +388,7 @@ export const Education = ({ button }: { button: any }) => {
               fullWidth
               className="custom-textfield"
               name="marks_Grade"
-              value={educationDetails.marks_Grade}
+              value={educationDetails?.marks_Grade ? educationDetails?.marks_Grade: educational_details?.marks_Grade}
               onChange={handleChange}
             />
             <Typography className="pt-10 pb-10">Course</Typography>
@@ -339,7 +398,7 @@ export const Education = ({ button }: { button: any }) => {
               fullWidth
               className="custom-textfield"
               name="course"
-              value={educationDetails.course}
+              value={educationDetails?.course ? educationDetails?.course : educational_details?.course}
               onChange={handleChange}
             />
             <Typography className="pt-10 pb-10">Name of Institute</Typography>
@@ -349,7 +408,7 @@ export const Education = ({ button }: { button: any }) => {
               fullWidth
               className="custom-textfield"
               name="institute"
-              value={educationDetails.institute}
+              value={educationDetails?.institute ? educationDetails?.institute : educational_details?.institute}
               onChange={handleChange}
             />
 
@@ -360,6 +419,7 @@ export const Education = ({ button }: { button: any }) => {
                   placeholder="Select SatrtDate..."
                   fullwidth
                   data="data"
+                  value ={educationDetails?.startDate ? educationDetails?.startDate:educational_details?.startDate}
                   renderData={Year}
                   onChange={handleChange}
                   named="startDate"
@@ -371,6 +431,7 @@ export const Education = ({ button }: { button: any }) => {
                   placeholder="Select EndDate..."
                   fullwidth
                   data="data"
+                  value={educationDetails?.endDate ? educationDetails?.endDate : educational_details?.endDate}
                   renderData={Year}
                   onChange={handleChange}
                   named="endDate"
@@ -465,30 +526,34 @@ export const PersonalDewtails = ({ button }: { button: any }) => {
   const HandleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("personal details", personaldetails, address);
+    const parsedDate = moment(user?.dateOfBirth, "YYYY-MMM-D");
     const formData = new FormData();
-    formData.append("email", personaldetails.email);
-    formData.append("name", personaldetails.name);
-    formData.append("mobilenumber", personaldetails.mobile);
-    formData.append("gender", personaldetails.gender);
-    formData.append("maritualStaus", personaldetails.maritualStaus);
+    formData.append("email", personaldetails.email ? personaldetails.email : user.email);
+    formData.append("name", personaldetails.name ? personaldetails.name:user.name);
+    formData.append("mobilenumber", personaldetails.mobile ? personaldetails.mobile:user.mobilenumber);
+    formData.append("gender", personaldetails.gender ? personaldetails.gender:user.gender);
+    formData.append("maritualStaus", personaldetails.maritualStaus ? personaldetails.maritualStaus: user.maritualStaus);
     formData.append(
       "dateOfBirth",
-      `${personaldetails.Year}-${personaldetails.Month}-${personaldetails.Date}`
+      `${ personaldetails.Year?personaldetails.Year: parsedDate.year() }-
+      ${personaldetails.Month ? personaldetails.Month: parsedDate.format("MMMM")}-
+      ${personaldetails.Date ? personaldetails.Date:parsedDate.date()}`
     );
     formData.append(
       "physicallyChallenged",
-      personaldetails.physicallyChallenged
+      personaldetails.physicallyChallenged ? personaldetails.physicallyChallenged : user.physicallyChallenged
+      
     );
-    formData.append("hometown", address[0].hometown || "");
-    formData.append("state", address[1].state || "");
-    formData.append("district", address[2].district || "");
-    formData.append("pincode", address[3].pincode || "");
-    formData.append("country", address[4].country || "");
-    formData.append("landmark", address[5].loandmark || "");
-    formData.append("languageKnown", personaldetails.languageKnown);
-    formData.append("fresher_Experienced", personaldetails.fresher_Experienced);
-    formData.append("experienced", personaldetails.experienced.toString());
-    formData.append("role", personaldetails.role);
+    formData.append("hometown", address[0].hometown  ? address[0].hometown : user.hometown);
+    formData.append("state", address[1].state  ? address[1].state : user.state);
+    formData.append("district", address[2].district ? address[2].district:user.district);
+    formData.append("pincode", address[3].pincode ? address[3].pincode : user.pincode);
+    formData.append("country", address[4].country ? address[4].country:user.country);
+    formData.append("landmark", address[5].loandmark ? address[5].loandmark: user.landmark);
+    formData.append("languageKnown", personaldetails.languageKnown ? personaldetails.languageKnown : user.languageKnow);
+    formData.append("fresher_Experienced", personaldetails.fresher_Experienced ? personaldetails.fresher_Experienced:user.fresher_Experienced);
+    formData.append("experienced", personaldetails.experienced.toString() ? personaldetails.experienced.toString():user.experienced);
+    formData.append("role", personaldetails.role  ? personaldetails.role:user.role);
 
     try {
       const response = await axios.patch(
@@ -523,6 +588,8 @@ export const PersonalDewtails = ({ button }: { button: any }) => {
     }
   }, [open]);
 
+
+console.log("data",'fdata',user)
   return (
     <React.Fragment>
       <div onClick={handleClickOpen("body")}>{button}</div>

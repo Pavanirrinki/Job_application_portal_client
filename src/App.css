@@ -63,6 +63,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 /* ---------------------------------ALL PADDING STYLES--------------------------------------------- */
+
 .pd-30{
 padding:30px 30px 0px 30px;
 }
@@ -238,6 +239,9 @@ align-items:center;
 }
 .fs-15{
   font-size: 15px !important;
+}
+.fs-16{
+  font-size: 16px !important;
 }
 .fs-12{
   font-size: 12px !important;

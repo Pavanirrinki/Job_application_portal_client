@@ -19,7 +19,7 @@ export interface DataProps {
   }
 
 type Props = {
-    data?:DataProps[];
+    data?:any;
     title?:string;
 };
 
@@ -72,7 +72,7 @@ console.log(props.data,"data1233455")
             position: "relative",
           }}
         >
-          {currentIndex != 0 && (
+          {(currentIndex != 0 && props.data.length >= 3) && (
             <div
               style={{
                 position: "absolute",
@@ -135,7 +135,7 @@ console.log(props.data,"data1233455")
               </Paper>
             );
           })}
-          {currentIndex != 4 && (
+          {currentIndex != 4 && props?.data?.length >=3 && (
             <div
               style={{
                 position: "absolute",

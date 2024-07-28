@@ -1,4 +1,6 @@
 import {
+  AlertTitle,
+  Alert,
   Box,
   Button,
   Container,
@@ -13,9 +15,15 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
-import { COMPANYSERVICE, USERSERVICE, profileimage } from "../../Containers/Env/Env";
+import {
+  COMPANYSERVICE,
+  USERSERVICE,
+  profileimage,
+} from "../../Containers/Env/Env";
 
 import { useNavigate } from "react-router-dom";
+import CustomizedSnackbars from "../../Containers/MuiComponents/SnackBar";
+
 
 type Props = {};
 
@@ -28,17 +36,73 @@ export const Register = (props: Props) => {
   const [registerAs, setRegisterAs] = useState("Employee");
   const [companyDescription, setCompanyDescription] = useState("");
   const [workingTechnologies, setWorkingTechnologies] = useState<string>("");
+  const [showsnackBar,setShowsnackBar] = useState<boolean>(false);
+  const [message,setMessage] = useState("");
+  const [severity,setSeverity] = useState('');
   const [errors, setErrors] = useState({
     name: "",
     email: "",
     mobile: "",
     password: "",
   });
+
+  const [companyErrors, setCompanyErrors] = useState({
+    companyDescription: "",
+    workingTechnologies: "",
+  });
   console.log("RegisterAS", registerAs);
 
   async function SubmitData(event: any) {
     event.preventDefault();
-    if (name && email && mobile && password) {
+    let formValid = true;
+
+    if (!name) {
+      formValid = false;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "Please provide a name",
+      }));
+    }
+    if (!email) {
+      formValid = false;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Please provide an email",
+      }));
+    }
+    if (!mobile) {
+      formValid = false;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        mobile: "Please provide a mobile number",
+      }));
+    }
+    if (!password) {
+      formValid = false;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Please provide a password",
+      }));
+    }
+
+    if (registerAs !== "Employee") {
+      if (!companyDescription) {
+        formValid = false;
+        setCompanyErrors((prevErrors) => ({
+          ...prevErrors,
+          companyDescription: "Please provide a description",
+        }));
+      }
+      if (!workingTechnologies) {
+        formValid = false;
+        setCompanyErrors((prevErrors) => ({
+          ...prevErrors,
+          workingTechnologies: "Please provide working technologies",
+        }));
+      }
+    }
+
+    if (formValid) {
       const Employeepayload = {
         email,
         password,
@@ -54,40 +118,52 @@ export const Register = (props: Props) => {
       formData.append("mobilenumber", mobile);
       formData.append("registerAs", registerAs);
       formData.append("workingTechnologies", workingTechnologies);
-      formData.append("profile_pic",profileimage);
+      formData.append("profile_pic", profileimage);
       try {
         const url =
           registerAs === "Employee"
             ? USERSERVICE + "register"
             : COMPANYSERVICE + "save";
         const payload = registerAs === "Employee" ? Employeepayload : formData;
-
         const { data } = await axios.post(url, payload);
-
-        console.log(data);
+        
+        console.log(data,"dataregister");
         setEmail("");
         setPassword("");
         setMobile("");
         setName("");
         setCompanyDescription("");
-        workingTechnologies && setWorkingTechnologies("");
+        setWorkingTechnologies("");
         setErrors({
           name: "",
           email: "",
           mobile: "",
           password: "",
         });
-
-        navigate("/login");
+        setCompanyErrors({
+          companyDescription: "",
+          workingTechnologies: "",
+        });
+        setMessage("Registered Successfully");
+        setSeverity("success");
+        setShowsnackBar(true);
+        setTimeout(()=>{
+         
+          navigate("/login");
+        },2000)
+        
       } catch (e: any) {
-        console.log(e.message);
+        console.log(e.response.data || e.message);
+        setMessage(e.response.data);
+        setSeverity("error")
+        setShowsnackBar(true);
       }
     } else {
-      console.log("error");
+      return ;
     }
   }
 
-  const BlurEffect = (field: any, value: any) => {
+  const BlurEffect = (field: string, value: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const mobileRegex = /^[6-9]\d{9}$/;
     let errorMessage = "";
@@ -107,35 +183,51 @@ export const Register = (props: Props) => {
         errorMessage =
           value.length <= 1 ? "Password must be longer than 1 character" : "";
         break;
+      case "companyDescription":
+        errorMessage =
+          value.length <= 1 ? "Company description must be provided" : "";
+        break;
+      case "workingTechnologies":
+        errorMessage =
+          value.length <= 1 ? "Working technologies must be provided" : "";
+        break;
       default:
         break;
     }
 
-    setErrors((prevErrors) => ({ ...prevErrors, [field]: errorMessage }));
+    if (field === "companyDescription" || field === "workingTechnologies") {
+      setCompanyErrors((prevErrors) => ({ ...prevErrors, [field]: errorMessage }));
+    } else {
+      setErrors((prevErrors) => ({ ...prevErrors, [field]: errorMessage }));
+    }
   };
 
   return (
     <>
-    <Box className="bg-white w-100 mb-20">
-      <Container className="d-flex justify-content-between align-items-center">
-      <img src="/portal_icon.webp" alt="logo" className="logo-styles" />
-      <Box className="d-flex gap-1">
-      <Typography className="header">Already Register?</Typography>
-      <Typography className="text-primary opacity10 fw-700 cursor-pointer" onClick={()=>navigate("/login")}> LOGIN</Typography>
-      <Typography> here</Typography>
-     </Box>
-      </Container>
-    </Box>
+      <Box className="bg-white w-100 mb-20">
+        <Container className="d-flex justify-content-between align-items-center">
+          <img src="/portal_icon.webp" alt="logo" className="logo-styles" />
+          <Box className="d-flex gap-1">
+            <Typography className="header">Already Register?</Typography>
+            <Typography
+              className="text-primary opacity10 fw-700 cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              {" "}
+              LOGIN
+            </Typography>
+            <Typography> here</Typography>
+          </Box>
+        </Container>
+      </Box>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={10} className="mb-20">
-        
           <Grid item xs={2}></Grid>
           <Grid
             item
             xs={3}
             className="d-flex justify-content-center flex-column align-items-center"
           >
-              
             <Paper elevation={4} className="text-center">
               <div>
                 <img src="/info.png" alt="info" className="img_dimensions" />
@@ -295,14 +387,27 @@ export const Register = (props: Props) => {
 
                       <TextField
                         id="outlined-textarea"
+                        error={!!companyErrors.companyDescription}
                         placeholder="Company Description...."
+                        onBlur={() => BlurEffect("companyDescription", companyDescription)}
                         className="border-input"
                         rows={5}
                         multiline
                         value={companyDescription}
                         fullWidth
-                        helperText="Please Provide description in points"
-                        onChange={(e) => setCompanyDescription(e.target.value)}
+                        helperText={
+                         companyErrors.companyDescription
+                            || "Please Provide description in points"
+                        }
+                        onChange={(e) => {
+                          setCompanyDescription(e.target.value);
+                          if (e.target.value.length > 1) {
+                            setCompanyErrors((prevErrors) => ({
+                              ...prevErrors,
+                              companyDescription: "",
+                            }));
+                          }
+                        }}
                       />
                       <label className="fs-14 fw-700 p-1">
                         Working Technologies
@@ -310,31 +415,46 @@ export const Register = (props: Props) => {
                       <TextField
                         id="outlined-basic"
                         placeholder="Add Skills"
+                        error={!!companyErrors.workingTechnologies}
+                        onBlur={() => BlurEffect("workingTechnologies", workingTechnologies)}
                         variant="outlined"
                         fullWidth
-                        helperText="Skills separated by comma."
-                        className="border-input"
-                        onChange={(e) =>
-                          setWorkingTechnologies(() => e.target.value)
+                        helperText={
+                          companyErrors.workingTechnologies
+                            ? companyErrors.workingTechnologies
+                            : "Skills separated by comma."
                         }
+                        className="border-input"
+                        onChange={(e) => {
+                          setWorkingTechnologies(e.target.value);
+                          if (e.target.value.length > 1) {
+                            setCompanyErrors((prevErrors) => ({
+                              ...prevErrors,
+                              workingTechnologies: "",
+                            }));
+                          }
+                        }}
                       />
-
-
                     </div>
                   )}
                 </FormControl>
-                <div className="d-flex justify-content-center align-items-center">
+               
+               
+                <CustomizedSnackbars message={message} showsnackBar={showsnackBar} severity={severity} >
+                  <div className="d-flex justify-content-center align-items-center">
                   <Button variant="contained" className="m-20" type="submit">
                     Register
                   </Button>
-                </div>
-
+                  </div>
+                  </CustomizedSnackbars>
+   
+               
               </form>
-            
             </Paper>
           </Grid>
         </Grid>
       </Box>
+      
     </>
   );
 };

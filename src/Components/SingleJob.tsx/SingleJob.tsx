@@ -50,6 +50,8 @@ axios
     .then((res) => {console.log(res.data)})
     .catch((err) => console.log(err.message));
 }
+
+console.log("dataa",userProfileData?.applied_jobs)
   return (
     <Container className="mb-3">
       <Grid container gap={4}>
@@ -73,7 +75,7 @@ axios
                   5.0
                 </Typography>
                 <Typography variant="body2" className="mt-0 ml-5px fw-600">
-                  5.0
+                  5
                 </Typography>
                 <Typography variant="body2" className="mt-0 ml-5px fw-600">
                   Reviews
@@ -145,7 +147,7 @@ axios
                   <Button variant="outlined" className="rounded-pill">
                     Save
                   </Button>
-                  <Button variant="contained" className="rounded-pill" onClick={ApplyForJob} disabled={userProfileData && userProfileData.applied_jobs.includes(id) ? true :false}>
+                  <Button variant="contained" className="rounded-pill" onClick={ApplyForJob} disabled={(userProfileData && userProfileData?.applied_jobs?.includes(id)) ? true :false}>
                     Apply
                   </Button>
                 </div>

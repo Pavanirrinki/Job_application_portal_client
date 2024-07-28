@@ -14,7 +14,7 @@ type Props = {
 const TopCompanies = (props: Props) => {
   const navigate = useNavigate();
   const {currentIndex,currentItem,moveForward,moveBackward} = useMovement(0, (props&&props.data != undefined ? props.data?.length:0));
-
+console.log("datadata",props.data)
   return (
     <Paper>
     <Container  className="mb-10 pt-20 pb-20 p-0">
@@ -25,14 +25,16 @@ const TopCompanies = (props: Props) => {
       Top Companies
      </Typography>
      <Typography
-      
-       className='fs-14 text-primary fw-700 cursor-pointer' onClick={()=>navigate("/view_all_companies")}
-     >
-       View All
+
+      style={{ fontSize: "13px", color: "#275df5", fontWeight: "700",cursor:"pointer" }}
+      onClick={()=>navigate("/View_all_jobs")}
+    >
+      View All
+
      </Typography>
      </Container>
      <Container className='d-flex flex-nowrap align-items-center position-relative'>
-          {currentIndex != 0 && (
+          {currentIndex != 0 && props.data.length >= 3  && (
             <div className='forward_Icon'
             >
               <ChevronLeftIcon onClick={moveBackward} />
@@ -71,7 +73,7 @@ const TopCompanies = (props: Props) => {
               </Paper>
             );
           })}
-          {currentIndex != 4 && (
+          {currentIndex != 4 && props.data.length >= 3 && (
             <div className='backward_Icon'
             >
               <ChevronRightIcon onClick={moveForward} />

@@ -7,6 +7,7 @@ import React, {
   SetStateAction,
 } from "react";
 import { COMPANYSERVICE, JOBSSERVICE, USERSERVICE } from "../Env/Env";
+import { useLocation } from "react-router-dom";
 
 // Define context type
 interface UserContextType {
@@ -16,7 +17,7 @@ interface UserContextType {
   educational_details: any;
   allJobsofCompany:any;
   waitforLoad:boolean;
- 
+  setWaitforLoad:Dispatch<SetStateAction<any>>;
 }
 
 // Create a context object
@@ -27,7 +28,7 @@ export const UserContext = createContext<UserContextType>({
   educational_details: null,
   allJobsofCompany:null,
   waitforLoad:false,
- 
+  setWaitforLoad:()=>{}
 
 });
 
@@ -37,6 +38,7 @@ interface Props {
 
 // Create a provider component
 export const Context: React.FC<Props> = ({ children }) => {
+  const location = useLocation();
   const [allJobsofCompany,setAllJobsofCompany] = useState<any>(null);
   const [user, setUser] = useState<any>(() => {
     const savedUser = localStorage.getItem("Job_application_user_data");
@@ -71,9 +73,9 @@ export const Context: React.FC<Props> = ({ children }) => {
         }
       }
     };
-
+    setWaitforLoad(false)
     fetchData();
-  }, [user]);
+  }, [user,waitforLoad]);
 
   useEffect(() => {
     if (user) {
@@ -95,7 +97,7 @@ export const Context: React.FC<Props> = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, userProfileData, educational_details,allJobsofCompany,waitforLoad}}
+      value={{ user, setUser, userProfileData, educational_details,allJobsofCompany,waitforLoad,setWaitforLoad}}
     >
       {children}
     </UserContext.Provider>

@@ -4,6 +4,14 @@
     overflow: hidden;
     height: 60px;
     position: relative;
-    border: 1px solid var(--N400);
+    border: 1px solid #e7e7f1;
     border-radius: 10px;
+}
+.working-tech-tag{
+    padding: 2px 6px;
+   font-weight: 500;
+    font-size: 11px;
+    line-height: 14px;
+    color: #717b9e;
+    margin-right: 5px;
 }

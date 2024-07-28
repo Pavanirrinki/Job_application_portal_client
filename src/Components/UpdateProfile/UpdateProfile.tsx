@@ -147,13 +147,13 @@ const UpdateProfile = (props: Props) => {
           
             <Typography>
               Uploaded on :{" "}
-              {userProfileData && formatDate(userProfileData.uploadeddate)}
+              {userProfileData && userProfileData.uploadeddate && formatDate(userProfileData.uploadeddate)}
             </Typography>
           </div>
           <div className="gap-4 d-flex">
             <a
               href={`data:image/${
-                userProfileData &&
+                userProfileData &&userProfileData.resumename && 
                 userProfileData.resumename.substring(
                   userProfileData.resumename.lastIndexOf(".") + 1,
                   userProfileData.resumename.length

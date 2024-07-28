@@ -51,7 +51,7 @@ useEffect(()=>{
    setUserdetails(user);
    
 },[])
-console.log(userProfileData,"home")
+console.log(userProfileData,"home");
   return (
     <>
       <div className="home_container" >
@@ -59,7 +59,7 @@ console.log(userProfileData,"home")
           <Grid item xs={2} className="mt-10" >
             <Paper className="profile_container" elevation={5}>
               <img
-                src="userdp.svg"
+                src={(userProfileData && userProfileData?.userId && userProfileData.userId.profile_pic) ? `data:image/png;base64,${userProfileData.userId.profile_pic}`: "userdp.svg"}
                 className="profile_image"
                 alt="profile_pic"
               />
